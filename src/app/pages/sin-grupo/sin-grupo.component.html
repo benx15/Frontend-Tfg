@@ -20,7 +20,7 @@
         <h4>{{ grupo.nombre }}</h4>
         <p>Género: {{ grupo.genero }}</p>
         <p>Cantidad: {{ grupo.cantidad }}</p>
-        <button>Ver grupo</button>
+        <button (click)="unirseAGrupo(grupo.id)" >Unirse a grupo</button>
       </div>
     </div>
   </main>
@@ -32,6 +32,7 @@
         <div class="evento-card" *ngFor="let evento of eventos | slice:0:3">
             <h5>{{ evento.nombre }}</h5>
             <p>{{ evento.ubicacion }} · {{ evento.fecha }}</p>
+            <button (click)="apuntarseAEvento(evento.id)">Apuntarse a evento</button>
         </div>
     </aside>
 

@@ -32,7 +32,7 @@ export class SinGrupoComponent implements OnInit {
     this.gruposService.getGrupos().subscribe({
       next: (data) => {
         this.grupos = data;
-        console.log('✅ Grupos cargados:', this.grupos.length);
+        console.log(' Grupos cargados:', this.grupos.length);
         this.cdr.detectChanges(); 
       },
       error: (err) => console.error(' Error grupos:', err)
@@ -41,7 +41,7 @@ export class SinGrupoComponent implements OnInit {
     this.eventosService.getEventos().subscribe({
       next: (data) => {
         this.eventos = data;
-        console.log('✅ Eventos cargados:', this.eventos.length);
+        console.log(' Eventos cargados:', this.eventos.length);
         this.cdr.detectChanges(); 
       },
       error: (err) => console.error(' Error eventos:', err)
