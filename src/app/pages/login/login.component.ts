@@ -53,13 +53,13 @@ export class LoginComponent implements OnInit, OnDestroy {
         localStorage.setItem('token', res.token);
 
         if (!res.grupo) {
-        this.router.navigate(['/sin-grupo,component']);
+        this.router.navigate(['/sin-grupo']);
         return;
       }
 
         if(res.rol === 'ADMON') this.router.navigate(['/dashboard-admin']);
         else if(res.rol === 'TRABAJADOR') this.router.navigate(['/dashboard-trabajador']);
-        else this.router.navigate(['/user.component']);
+        else this.router.navigate(['/user']);
       },
       error: err => alert(err.error.mensaje)
     });
