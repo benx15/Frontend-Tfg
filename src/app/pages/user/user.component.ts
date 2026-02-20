@@ -14,7 +14,7 @@ import { GalleryPreviewComponent } from '../../components/g-preview/g-preview.co
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class HomeComponent {
+export class UserComponent {
   goTo(link: string): void {
     alert(`Ir a ${link}`);
   }

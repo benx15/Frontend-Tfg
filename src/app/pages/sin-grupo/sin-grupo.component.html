@@ -1,1 +1,38 @@
-<p>hj</p>
+
+<nav class="navbar">
+  <div class="navbar-brand">Blogcert</div>
+  <ul class="navbar-nav">
+    <li><a routerLink="/inicio">Inicio</a></li>
+    <li><a href="#">Mis artistas</a></li>
+    <li><a href="#">Mis posts</a></li>
+  </ul>
+</nav>
+
+
+<div class="dashboard-container">
+  
+
+  <main class="main">
+    <h3>Grupos disponibles: </h3>
+
+    <div class="grupos-grid">
+      <div class="grupo-card" *ngFor="let grupo of grupos">
+        <h4>{{ grupo.nombre }}</h4>
+        <p>Género: {{ grupo.genero }}</p>
+        <p>Cantidad: {{ grupo.cantidad }}</p>
+        <button>Ver grupo</button>
+      </div>
+    </div>
+  </main>
+
+
+ <aside class="sidebar">
+        <h4>Próximos eventos :</h4>
+
+        <div class="evento-card" *ngFor="let evento of eventos | slice:0:3">
+            <h5>{{ evento.nombre }}</h5>
+            <p>{{ evento.ubicacion }} · {{ evento.fecha }}</p>
+        </div>
+    </aside>
+
+</div>
