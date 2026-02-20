@@ -11,8 +11,8 @@ import { GalleryPreviewComponent } from '../../components/g-preview/g-preview.co
     NewsPreviewComponent,
     GalleryPreviewComponent
   ],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss']
 })
 export class HomeComponent {
   goTo(link: string): void {
