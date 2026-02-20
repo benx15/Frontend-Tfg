@@ -1,12 +1,5 @@
 
-<nav class="navbar">
-  <div class="navbar-brand">Blogcert</div>
-  <ul class="navbar-nav">
-    <li><a routerLink="/inicio">Inicio</a></li>
-    <li><a href="#">Mis artistas</a></li>
-    <li><a href="#">Mis posts</a></li>
-  </ul>
-</nav>
+
 
 
 <div class="dashboard-container">
@@ -32,7 +25,7 @@
         <div class="evento-card" *ngFor="let evento of eventos | slice:0:3">
             <h5>{{ evento.nombre }}</h5>
             <p>{{ evento.ubicacion }} · {{ evento.fecha }}</p>
-            <button (click)="apuntarseAEvento(evento.id)">Apuntarse a evento</button>
+            <button >Apuntarse a evento</button>
         </div>
     </aside>
 
