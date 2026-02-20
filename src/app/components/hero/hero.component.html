@@ -1,0 +1,24 @@
+<section class="hero">
+  <div class="hero-video-wrapper">
+    <video 
+      #heroVideo
+      autoplay 
+      muted 
+      playsinline
+      class="hero-video"
+      (ended)="onVideoEnded()">
+      <source [src]="videos[currentVideoIndex]" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+  </div>
+
+  <div class="hero-content">
+    <h1 class="hero-title">{{ title }}</h1>
+    <p class="hero-subtitle">{{ subtitle }}</p>
+    <p class="hero-description">{{ description }}</p>
+    <div class="hero-actions">
+      <button class="btn-primary">Explorar eventos</button>
+      <button class="btn-secondary">Saber más</button>
+    </div>
+  </div>
+</section>

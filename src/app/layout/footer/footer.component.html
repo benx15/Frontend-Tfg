@@ -1,0 +1,81 @@
+<footer class="ftr">
+  <div class="ftr-content">
+    <div class="ftr-main">
+      <div class="ftr-col ftr-brand">
+        <div class="ftr-logo">
+          <h3>Blogcert</h3>
+        </div>
+        <p class="ftr-desc">
+          Tu comunidad musical donde conectar, descubrir y compartir tu pasión por la música.
+        </p>
+        <div class="ftr-socials">
+          <a 
+            *ngFor="let social of socialLinks" 
+            [href]="social.url" 
+            [attr.aria-label]="social.label"
+            target="_blank"
+            rel="noopener">
+            <i [class]="social.icon"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="ftr-col">
+        <h4>Enlaces Rápidos</h4>
+        <ul class="ftr-links">
+          <li *ngFor="let link of quickLinks">
+            <a [href]="link.url">
+              <i class="fas fa-chevron-right"></i>
+              {{ link.name }}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="ftr-col">
+        <h4>Soporte</h4>
+        <ul class="ftr-links">
+          <li *ngFor="let link of supportLinks">
+            <a [href]="link.url">
+              <i class="fas fa-chevron-right"></i>
+              {{ link.name }}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="ftr-col">
+        <h4>Newsletter</h4>
+        <p class="ftr-newsletter-text">
+          Suscríbete para recibir las últimas noticias y eventos.
+        </p>
+        <div class="ftr-newsletter">
+          <input 
+            type="email" 
+            placeholder="Tu email" 
+            class="ftr-input"
+            aria-label="Email para newsletter">
+          <button class="ftr-btn" aria-label="Suscribirse">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ftr-bottom">
+      <div class="ftr-row">
+        <p class="ftr-text">
+          © {{ currentYear }} Blogcert. Todos los derechos reservados.
+        </p>
+        <nav class="ftr-menu" aria-label="Enlaces legales">
+          <ul>
+            <li *ngFor="let link of legalLinks; let last = last">
+              <a [href]="link.url">{{ link.name }}</a>
+              <span *ngIf="!last" class="ftr-sep">•</span>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer>

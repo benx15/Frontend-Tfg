@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
+  background-color: #f5f7fa;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+app-news-preview,
+app-activity-feed {
+  display: block;
+  min-width: 0;
+}
+.row-section {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.row-section app-news-preview,
+.row-section app-activity-feed {
+  display: block !important;
+  min-width: 0 !important;
+}
+
+.row-section app-news-preview section,
+.row-section app-activity-feed section {
+  height: 100%;
+}

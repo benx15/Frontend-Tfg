@@ -1,0 +1,19 @@
+<section class="activity-feed">
+  <div class="activity-header"> Actividad Reciente </div>
+  
+  <div class="activity-list">
+    <div class="activity-item" *ngFor="let activity of activities">
+      <div class="activity-icon" [style.background-color]="activity.iconColor">
+        <i [class]="activity.icon"></i>
+      </div>
+      
+      <div class="activity-content">
+        <p class="activity-text">
+          <strong>{{ activity.user }}</strong> {{ activity.action }}
+          <span class="activity-target">{{ activity.target }}</span>
+        </p>
+        <span class="activity-time">{{ activity.time }}</span>
+      </div>
+    </div>
+  </div>
+</section>

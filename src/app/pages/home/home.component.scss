@@ -1,0 +1,29 @@
+.home-container {
+  width: 100%;
+}
+
+.mc {
+  padding: 2rem;
+  background-color: #f5f7fa;
+  min-height: calc(100vh - 200px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.row-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+  
+  ::ng-deep app-news-preview,
+  ::ng-deep app-activity-feed {
+    display: block;
+    min-width: 0;
+  }
+}

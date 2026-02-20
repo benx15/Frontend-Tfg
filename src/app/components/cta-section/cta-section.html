@@ -1,0 +1,33 @@
+<section class="cta-section">
+  <div class="cta-content">
+    <div class="cta-text">
+      <h2>Únete a la Comunidad </h2>
+      <p class="cta-subtitle">Descubre eventos, comparte tu pasión y conecta con otros fanáticos de la música</p>
+      
+      <div class="benefits-list">
+        <div class="benefit-item" *ngFor="let benefit of benefits">
+          <div class="benefit-icon">
+            <i [class]="benefit.icon"></i>
+          </div>
+          <div class="benefit-text">
+            <h3>{{ benefit.title }}</h3>
+            <p>{{ benefit.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-actions">
+      <button class="btn-register" (click)="onRegister()">
+        <i class="fas fa-user-plus"></i> Crear cuenta gratis
+      </button>
+      <button class="btn-login" (click)="onLogin()">
+        <i class="fas fa-sign-in-alt"></i> Ya tengo cuenta
+      </button>
+      
+      <p class="cta-note">
+        <i class="fas fa-lock"></i> Registro gratuito! Sin tarjetas de crédito, sin compromisos. ¡Únete hoy y comienza a compartir tu pasión!
+      </p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,254 @@
+.ftr {
+  background:#222;
+  color: white;
+  width: 100%;
+  margin-top: auto;
+
+  .ftr-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .ftr-main {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 3rem;
+    padding: 3rem 2rem;
+
+    @media (max-width: 992px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 2rem 1.5rem;
+    }
+  }
+
+  .ftr-col {
+    h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      color: white;
+      position: relative;
+      padding-bottom: 0.5rem;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 40px;
+        height: 3px;
+        background: #3498db;
+        border-radius: 2px;
+      }
+    }
+
+    &.ftr-brand {
+      .ftr-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin-bottom: 1rem;
+
+        i {
+          font-size: 2rem;
+          color: #3498db;
+        }
+
+        h3 {
+          font-size: 1.5rem;
+          font-weight: 700;
+          margin: 0;
+          color: white;
+        }
+      }
+
+      .ftr-desc {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 1.5rem;
+      }
+    }
+  }
+
+  .ftr-socials {
+    display: flex;
+    gap: 0.8rem;
+
+    a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+
+      i {
+        font-size: 1rem;
+      }
+
+      &:hover {
+        background: #3498db;
+        transform: translateY(-3px);
+      }
+    }
+  }
+
+  .ftr-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: 0.7rem;
+
+      a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+
+        i {
+          font-size: 0.7rem;
+          transition: transform 0.3s ease;
+        }
+
+        &:hover {
+          color: #3498db;
+          padding-left: 0.3rem;
+
+          i {
+            transform: translateX(3px);
+          }
+        }
+      }
+    }
+  }
+
+  .ftr-newsletter-text {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  .ftr-newsletter {
+    display: flex;
+    gap: 0.5rem;
+
+    .ftr-input {
+      flex: 1;
+      padding: 0.7rem 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.3s ease;
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      &:focus {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: #3498db;
+      }
+    }
+
+    .ftr-btn {
+      padding: 0.7rem 1.2rem;
+      background: #3498db;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      i {
+        font-size: 1rem;
+      }
+
+      &:hover {
+        background: #2980b9;
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  .ftr-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem 2rem;
+
+    @media (max-width: 576px) {
+      padding: 1.5rem;
+    }
+
+    .ftr-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    .ftr-text {
+      margin: 0;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .ftr-menu {
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+
+        li {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+
+            &:hover {
+              color: #3498db;
+            }
+          }
+
+          .ftr-sep {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+  }
+}

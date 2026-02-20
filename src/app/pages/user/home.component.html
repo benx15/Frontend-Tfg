@@ -1,0 +1,24 @@
+<div class="home-container">
+  <app-news-preview></app-news-preview>
+  <app-gallery-preview></app-gallery-preview>
+
+  <section class="container-grid">
+    <div class="info-card artistas-card">
+      <div class="card-icon">
+        <i class="fas fa-star"></i>
+      </div>
+      <h2>Artistas destacados</h2>
+      <p>Descubre nuevos artistas y sigue a tus favoritos.</p>
+      <button class="btn-primary" (click)="goTo('artistas')">Explorar</button>
+    </div>
+
+    <div class="info-card publicaciones-card">
+      <div class="card-icon">
+        <i class="fas fa-newspaper"></i>
+      </div>
+      <h2>Últimas publicaciones</h2>
+      <p>Mantente al día con los posts más recientes.</p>
+      <button class="btn-primary" (click)="goTo('publicaciones')">Ir a publicaciones</button>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,22 @@
+<section class="artist-cards">
+    <div class="artist-header">
+      <h2>Artistas que sigues</h2>
+    </div>
+  
+    <div class="artist-grid">
+      <div class="artist-card" 
+           *ngFor="let artist of artists"
+           (click)="goToArtist(artist.id)">
+        <div class="artist-image-wrapper">
+          <img [src]="artist.image" [alt]="artist.name">
+          <div class="artist-overlay">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+        <div class="artist-info">
+          <h3>{{ artist.name }}</h3>
+          <span class="artist-genre">{{ artist.genre }}</span>
+        </div>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,110 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden; 
+  background-color: #f5f7fa;
+  color: #333;
+}
+
+/* LAYOUT GLOBAL */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* MAIN CONTENT (SIN SIDEBAR) */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: margin-left 0.3s ease;
+}
+
+/* CONTENIDO PRINCIPAL */
+.mc {
+  flex: 1;
+  padding: 2rem;
+  background-color: #f5f7fa;
+  overflow-x: hidden; /* evita scroll horizontal */
+}
+
+/* GRID */
+.container-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+/* CARDS */
+.info-card {
+  background: white;
+  border-radius: 14px;
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  h2 {
+    color: #222;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* ICONOS EN CARDS */
+.card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background-color: #3498db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+
+  i {
+    color: white;
+    font-size: 1.4rem;
+  }
+}
+
+.info-card:hover .card-icon {
+  transform: scale(1.1) rotate(-4deg);
+  background-color: #2c80b4;
+}
+
+/* BOTONES */
+.btn-primary {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.55rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #2c80b4;
+  }
+}
