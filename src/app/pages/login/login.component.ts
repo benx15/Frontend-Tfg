@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component,  OnInit, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-login',
@@ -12,10 +14,38 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit, OnDestroy {
   credentials = { username: '', password: '' };
 
-  constructor(private login: LoginService, private router: Router) {}
+  rawImages: string[] = [
+    'assets/bg1.jpg',
+    'assets/bg2.jpg',
+    'assets/bg3.jpg',
+    'assets/bg4.jpg',
+  ];
+
+  currentSlide = 0;
+  private carouselInterval: any;
+
+  constructor(private login: LoginService, private router: Router , private sanitizer: DomSanitizer) {}
+
+  ngOnInit(): void {
+    this.startCarousel();
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.carouselInterval);
+  }
+
+  getImageUrl(path: string): SafeStyle {
+    return this.sanitizer.bypassSecurityTrustStyle(`url('${path}')`);
+  }
+
+  startCarousel(): void {
+    this.carouselInterval = setInterval(() => {
+      this.currentSlide = (this.currentSlide + 1) % this.rawImages.length;
+    }, 4000);
+  }
 
   onLogin(): void {
     this.login.login(this.credentials).subscribe({
