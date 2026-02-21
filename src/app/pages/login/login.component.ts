@@ -51,6 +51,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.login.login(this.credentials).subscribe({
       next: res => {
         localStorage.setItem('token', res.token);
+        localStorage.setItem('usuarioId', res.usuarioId ?? res._id ?? res.id);
+        localStorage.setItem('nombre', res.nombre);
 
         if (!res.grupo) {
         this.router.navigate(['/sin-grupo']);

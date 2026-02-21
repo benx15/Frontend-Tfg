@@ -43,7 +43,7 @@ export class ClienteService {
 
   agregarUsuarioAGrupo(payload: { usuarioId: string, grupoId: string }): Observable<any> {
     return this.http.post<any>(
-      `${this.apiUrl}/agregarUsuarioAGrupo`, 
+      `${this.apiUrl}/unirseGrupo`, 
       payload, 
       {
         headers: this.getHeaders()
@@ -55,7 +55,7 @@ export class ClienteService {
 
   agregarUsuarioAEvento(payload: { usuarioId: string, eventoId: string }): Observable<any> {
     return this.http.post<any>(
-      `${this.apiUrl}/agregarUsuarioAEvento`, 
+      `${this.apiUrl}/apuntarseEvento`, 
       payload, 
       {
         headers: this.getHeaders()

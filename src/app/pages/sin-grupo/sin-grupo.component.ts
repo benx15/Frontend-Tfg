@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { GruposService } from '../../services/grupos.service';
 import { EventosService } from '../../services/eventos.service';
@@ -21,7 +21,9 @@ export class SinGrupoComponent implements OnInit {
     private gruposService: GruposService,
     private eventosService: EventosService,
     private cdr: ChangeDetectorRef,
-    private clienteService: ClienteService 
+    private clienteService: ClienteService,
+    private router: Router
+     
   ) {}
 
   ngOnInit(): void {
@@ -53,7 +55,10 @@ export class SinGrupoComponent implements OnInit {
    unirseAGrupo(grupoId: string): void {
     const payload = { usuarioId: this.usuarioId, grupoId };
     this.clienteService.agregarUsuarioAGrupo(payload).subscribe({
-      next: () => alert('Te has unido al grupo correctamente'),
+      next: () => {
+        alert('Te has unido al grupo correctamente');
+        this.router.navigate(['/user']);
+      },
       error: err => alert(err.error.mensaje)
     });
   }
