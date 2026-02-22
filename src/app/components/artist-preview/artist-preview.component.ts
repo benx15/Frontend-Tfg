@@ -10,13 +10,13 @@ interface ArtistCard {
 }
 
 @Component({
-  selector: 'app-gallery-preview',
+  selector: 'app-artist-preview',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './artist-preview.component.html',
   styleUrls: ['./artist-preview.component.scss']
 })
-export class GalleryPreviewComponent {
+export class ArtistPreviewComponent {
   constructor(private router: Router) {}
 
   artists: ArtistCard[] = [

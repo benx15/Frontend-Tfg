@@ -4,6 +4,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { SinGrupoComponent } from './pages/sin-grupo/sin-grupo.component';
 import { UserComponent } from './pages/user/user.component';
+import { AdminComponent } from './pages/admin/admin.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -11,4 +12,5 @@ export const routes: Routes = [
   { path: 'registro', component: RegisterComponent },
   { path: 'sin-grupo', component: SinGrupoComponent },
   { path: 'user', component: UserComponent },
+  { path: 'admin', component: AdminComponent }
 ];

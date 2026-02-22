@@ -1,0 +1,40 @@
+<div class="sidebar" [class.collapsed]="collapsed">
+  <div class="toggle-btn" (click)="onToggleSidebar()">
+    <i [class]="collapsed ? 'fas fa-chevron-right' : 'fas fa-chevron-left'"></i>
+  </div>
+
+  <div class="logo-section">
+    <i class="fas fa-gauge-high logo-icon"></i>
+    <span class="logo-text" *ngIf="!collapsed">Panel de Control</span>
+  </div>
+  <ul class="menu-list">
+    <li *ngFor="let item of menuItems" class="menu-item">
+      
+      <!-- Item sin hijos -->
+      <a *ngIf="!item.children" class="menu-link" [attr.href]="item.route">
+        <i [class]="item.icon"></i>
+        <span class="menu-text">{{ item.label }}</span>
+      </a>
+
+      <!-- Item con hijos -->
+      <div *ngIf="item.children">
+        <a class="menu-link" (click)="toggleSubmenu(item)">
+          <i [class]="item.icon"></i>
+          <span class="menu-text">{{ item.label }}</span>
+          <i class="fas fa-chevron-down submenu-icon"
+             [class.rotated]="item.isExpanded"
+             *ngIf="!collapsed"></i>
+        </a>
+
+        <ul class="submenu" [class.expanded]="item.isExpanded && !collapsed">
+          <li *ngFor="let child of item.children">
+            <a class="submenu-link" [attr.href]="child.route">
+              <i [class]="child.icon"></i>
+              <span class="submenu-text">{{ child.label }}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>
