@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 interface MenuItem {
   icon: string;
@@ -12,7 +13,7 @@ interface MenuItem {
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
@@ -31,8 +32,8 @@ export class SidebarComponent {
       label: 'Usuarios',
       isExpanded: false,
       children: [
-        { icon: 'fas fa-user-plus', label: 'Añadir Usuario', route: '/users/add' },
-        { icon: 'fas fa-users', label: 'Lista de Usuarios', route: '/users/list' },
+        { icon: 'fas fa-user-plus', label: 'Añadir Usuario', route: '/admin/add' },
+        { icon: 'fas fa-users', label: 'Lista de Usuarios', route: '/admin/list' },
       ]
     },
     {

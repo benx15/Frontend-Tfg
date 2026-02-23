@@ -1,0 +1,143 @@
+<div class="dashboard-container">
+  
+      <div class="tabla-container" *ngIf="usuarios.length > 0; else noData">
+        <table class="tabla-usuarios">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Nombre</th>
+              <th>Apellidos</th>
+              <th>Edad</th>
+              <th>Email</th>
+              <th>Rol</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of usuariosPaginados">
+              <td>{{ usuario.username }}</td>
+              <td>{{ usuario.name }}</td>
+              <td>{{ usuario.lastName }}</td>
+              <td>{{ usuario.age }}</td>
+              <td>{{ usuario.email }}</td>
+              <td>
+                <span class="badge"
+                  [class.badge-admin]="usuario.rol === 'ADMIN'"
+                  [class.badge-trabajador]="usuario.rol === 'TRABAJADOR'">
+                  {{ usuario.rol }}
+                </span>
+              </td>
+              <td class="acciones">
+                <button class="btn-editar" (click)="abrirModalEditar(usuario)">
+                  Editar
+                </button>
+                <button class="btn-eliminar" (click)="borrarUsuario(usuario._id)">
+                  Borrar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+  
+        <div class="paginacion">
+          <button class="btn-pag" (click)="paginaAnterior()" [disabled]="paginaActual === 1">
+            ← Anterior
+          </button>
+  
+          <span class="info-pag">
+            Página {{ paginaActual }} de {{ totalPaginas }}
+          </span>
+  
+          <button class="btn-pag" (click)="paginaSiguiente()" [disabled]="paginaActual === totalPaginas">
+            Siguiente →
+          </button>
+        </div>
+      </div>
+  
+      <ng-template #noData>
+        <p>No hay usuarios registrados</p>
+      </ng-template>
+  
+    </div>
+  
+   
+    <div class="modal-overlay" *ngIf="mostrarModal" (click)="cerrarModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+  
+        <h3>{{ modoEdicion ? 'Editar Usuario' : 'Crear Usuario' }}</h3>
+  
+        <form (ngSubmit)="guardarUsuario()">
+  
+          <div class="form-group">
+            <label>Username *</label>
+            <input type="text"
+                   [(ngModel)]="usuarioForm.username"
+                   name="username"
+                   required>
+          </div>
+  
+          <div class="form-group" *ngIf="!modoEdicion">
+            <label>Password *</label>
+            <input type="password"
+                   [(ngModel)]="usuarioForm.password"
+                   name="password"
+                   [required]="!modoEdicion">
+          </div>
+  
+          <div class="form-group">
+            <label>Nombre *</label>
+            <input type="text"
+                   [(ngModel)]="usuarioForm.name"
+                   name="name"
+                   required>
+          </div>
+  
+          <div class="form-group">
+            <label>Apellidos *</label>
+            <input type="text"
+                   [(ngModel)]="usuarioForm.lastName"
+                   name="lastName"
+                   required>
+          </div>
+  
+          <div class="form-group">
+            <label>Edad</label>
+            <input type="number"
+                   [(ngModel)]="usuarioForm.age"
+                   name="age">
+          </div>
+  
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email"
+                   [(ngModel)]="usuarioForm.email"
+                   name="email"
+                   required>
+          </div>
+  
+          <div class="form-group">
+            <label>Rol *</label>
+            <select [(ngModel)]="usuarioForm.rol" name="rol" required>
+              <option value="ADMIN">ADMIN</option>
+              <option value="TRABAJADOR">TRABAJADOR</option>
+            </select>
+          </div>
+  
+          <div class="form-actions">
+            <button type="button" (click)="cerrarModal()">
+              Cancelar
+            </button>
+  
+            <button type="submit">
+              {{ modoEdicion ? 'Actualizar' : 'Crear' }}
+            </button>
+          </div>
+  
+        </form>
+  
+      </div>
+  </div>
+
+  
+  
