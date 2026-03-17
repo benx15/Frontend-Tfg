@@ -7,6 +7,7 @@ import { UserComponent } from './pages/user/user.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AddComponent } from './pages/add/add.component';
 import { ListComponent } from './pages/list/list.component';
+import { WorkerComponent } from './pages/worker/worker.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,7 +17,7 @@ export const routes: Routes = [
   { path: 'user', component: UserComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'admin/add', component: AddComponent },   
-  { path: 'admin/list', component: ListComponent}
- 
+  { path: 'admin/list', component: ListComponent},
+  { path: 'worker', component: WorkerComponent }
   
 ];

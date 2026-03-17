@@ -54,8 +54,13 @@ export class LoginComponent implements OnInit, OnDestroy {
         localStorage.setItem('usuarioId', res.usuarioId ?? res._id ?? res.id);
         localStorage.setItem('nombre', res.nombre);
 
-        if (res.rol === 'ADMON') {
+      if (res.rol === 'ADMON') {
         this.router.navigate(['/admin']);
+        return;
+      }
+      
+      if (res.rol === 'TRABAJADOR') {
+        this.router.navigate(['/worker']);
         return;
       }
 
@@ -64,7 +69,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         return;
       }
 
-      if (res.rol === 'TRABAJADOR') this.router.navigate(['/dashboard-trabajador']);
+      
       else this.router.navigate(['/user']);
       },
       error: err => alert(err.error.mensaje)

@@ -1,0 +1,14 @@
+<div class="app-container">
+
+  <app-worker-sidebar
+    [collapsed]="sidebarCollapsed"
+    (toggle)="onSidebarToggle()">
+  </app-worker-sidebar>
+
+  <div class="main-content" [style.margin-left]="sidebarCollapsed ? '70px' : '250px'">
+    
+    <app-home></app-home>
+    <router-outlet></router-outlet>
+    
+  </div>
+</div>
