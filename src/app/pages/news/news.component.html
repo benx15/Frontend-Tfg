@@ -19,11 +19,12 @@
             <th>Titular</th>
             <th>Tematica</th>
             <th>Genero</th>
+            <th></th>
             
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let noticia of naticiassPaginadas">
+          <tr *ngFor="let noticia of noticiasPaginadas">
             <td>{{ noticia.titular }}</td>
             <td>{{ noticia.tematica }}</td>
             <td>{{ noticia.genero }}</td>
@@ -33,9 +34,7 @@
               <button class="btn-editar" (click)="abrirModalEditar(noticia)">
                 Editar
               </button>
-              <button class="btn-eliminar" (click)="borrarUsuario(noticia._id)">
-                Borrar
-              </button>
+              
             </td>
           </tr>
         </tbody>
@@ -68,7 +67,7 @@
 
       <h3>{{ modoEdicion ? 'Editar Noticia' : 'Crear Noticia' }}</h3>
 
-      <form (ngSubmit)="guardarUsuario()">
+      <form (ngSubmit)="guardarNoticia()">
 
         <div class="form-group">
           <label>Titular *</label>

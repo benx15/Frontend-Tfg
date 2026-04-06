@@ -8,6 +8,7 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { AddComponent } from './pages/add/add.component';
 import { ListComponent } from './pages/list/list.component';
 import { WorkerComponent } from './pages/worker/worker.component';
+import { NewsComponent } from './pages/news/news.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +19,7 @@ export const routes: Routes = [
   { path: 'admin', component: AdminComponent },
   { path: 'admin/add', component: AddComponent },   
   { path: 'admin/list', component: ListComponent},
-  { path: 'worker', component: WorkerComponent }
+  { path: 'worker', component: WorkerComponent },
+  {path: 'worker/list-news', component: NewsComponent}
   
 ];

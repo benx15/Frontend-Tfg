@@ -32,7 +32,7 @@ export class WorkerSidebarComponent {
       label: 'Noticias',
       isExpanded: false,
       children: [
-        { icon: 'fas fa-users', label: 'Lista de Noticias', route: '/list-news' },
+        { icon: 'fas fa-users', label: 'Lista de Noticias', route: '/worker/list-news' },
       ]
     },
     {
@@ -40,7 +40,7 @@ export class WorkerSidebarComponent {
       label: 'Eventos',
       isExpanded: false,
       children: [
-        { icon: 'fas fa-users', label: 'Lista de Eventos', route: '/list-events' },
+        { icon: 'fas fa-users', label: 'Lista de Eventos', route: '/worker/list-events' },
       ]
     },
     {
@@ -48,7 +48,7 @@ export class WorkerSidebarComponent {
       label: 'Grupos',
       isExpanded: false,
       children: [
-        { icon: 'fas fa-users', label: 'Lista de Grupos', route: '/list-groups' },
+        { icon: 'fas fa-users', label: 'Lista de Grupos', route: '/worker/list-groups' },
       ]
     },
     {

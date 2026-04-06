@@ -8,8 +8,8 @@ import { TrabajadorService } from '../../services/trabajador.service';
   selector: 'app-news-component',
   standalone: true,
   imports: [RouterModule, CommonModule, FormsModule],
-  templateUrl: './news-component.html',
-  styleUrls: ['./news-component.scss'],
+  templateUrl: './news.component.html',
+  styleUrls: ['./news.component.scss'],
 })
 export class NewsComponent implements OnInit {
   
