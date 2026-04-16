@@ -1,0 +1,119 @@
+<div class="dashboard-container">
+
+  <nav class="navbar">
+    <h2>Dashboard Trabajador</h2>
+  </nav>
+
+  <div class="content">
+
+    <div class="header-actions">
+      <button class="btn-crear" (click)="abrirModalCrear()">
+        <span>+</span> Crear Noticia
+      </button>
+    </div>
+
+    <div class="tabla-container" *ngIf="noticias.length > 0; else noData">
+      <table class="tabla-usuarios">
+        <thead>
+          <tr>
+            <th>Titular</th>
+            <th>Tematica</th>
+            <th>Genero</th>
+            <th></th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let noticia of noticiasPaginadas">
+            <td>{{ noticia.titular }}</td>
+            <td>{{ noticia.tematica }}</td>
+            <td>{{ noticia.genero }}</td>
+            
+            
+            <td class="acciones">
+              <button class="btn-editar" (click)="abrirModalEditar(noticia)">
+                Editar
+              </button>
+              
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="paginacion">
+        <button class="btn-pag" (click)="paginaAnterior()" [disabled]="paginaActual === 1">
+          ← Anterior
+        </button>
+
+        <span class="info-pag">
+          Página {{ paginaActual }} de {{ totalPaginas }}
+        </span>
+
+        <button class="btn-pag" (click)="paginaSiguiente()" [disabled]="paginaActual === totalPaginas">
+          Siguiente →
+        </button>
+      </div>
+    </div>
+
+    <ng-template #noData>
+      <p>No hay usuarios registrados</p>
+    </ng-template>
+
+  </div>
+
+
+  <div class="modal-overlay" *ngIf="mostrarModal" (click)="cerrarModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+
+      <h3>{{ modoEdicion ? 'Editar Noticia' : 'Crear Noticia' }}</h3>
+
+      <form (ngSubmit)="guardarNoticia()">
+
+        <div class="form-group">
+          <label>Titular *</label>
+          <input type="text"
+                [(ngModel)]="noticiaForm.titular"
+                name="titular"
+                required>
+        </div>
+
+        <div class="form-group">
+          <label>Tematica *</label>
+          <select [(ngModel)]="noticiaForm.tematica" name="tematica" required>
+            <option value="Album o EP">Album o EP</option>
+            <option value="Quedadas">Quedadas</option>
+            <option value="Grupos">Grupos</option>
+            <option value="Otros">Otros</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Contenido *</label>
+          <input type="text"
+                [(ngModel)]="noticiaForm.contenido"
+                name="contenido"
+                required>
+        </div>
+        <div class="form-group">
+          <label>Genero *</label>
+          <input type="text"
+                [(ngModel)]="noticiaForm.genero"
+                name="genero"
+                required>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" (click)="cerrarModal()">
+            Cancelar
+          </button>
+
+          <button type="submit">
+            {{ modoEdicion ? 'Actualizar' : 'Crear' }}
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+</div>

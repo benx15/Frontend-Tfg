@@ -9,6 +9,8 @@ import { AddComponent } from './pages/add/add.component';
 import { ListComponent } from './pages/list/list.component';
 import { WorkerComponent } from './pages/worker/worker.component';
 import { NewsComponent } from './pages/news/news.component';
+import { GroupComponent } from './pages/group/group.component';
+import { EventComponent } from './pages/event/event.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,6 +22,8 @@ export const routes: Routes = [
   { path: 'admin/add', component: AddComponent },   
   { path: 'admin/list', component: ListComponent},
   { path: 'worker', component: WorkerComponent },
-  {path: 'worker/list-news', component: NewsComponent}
+  {path: 'worker/list-news', component: NewsComponent},
+  {path: 'worker/list-groups', component: GroupComponent},
+  {path: 'worker/list-events' , component: EventComponent}
   
 ];

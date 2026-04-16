@@ -1,0 +1,447 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap');
+
+/* ─── Página ─── */
+.page-wrapper {
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  background-color: #b5845a;
+  background-image:
+    radial-gradient(ellipse at 20% 30%, #c9954e 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 70%, #a06030 0%, transparent 55%);
+  padding: 2.5rem 2rem 3rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ─── Cabecera ─── */
+.board-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.board-header h1 {
+  font-family: 'Caveat', cursive;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #fff8ee;
+  text-shadow: 1px 2px 0 rgba(0,0,0,0.2);
+}
+
+.board-header p {
+  color: rgba(255,248,238,0.7);
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+/* ─── Mensajes de estado ─── */
+.msg-estado {
+  text-align: center;
+  color: #fff8ee;
+  font-size: 1rem;
+  margin-top: 3rem;
+}
+
+.msg-error { color: #ffcdd2; }
+
+/* ─── Tablón ─── */
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 36px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* ─── Post-it base ─── */
+.postit {
+  width: 210px;
+  min-height: 230px;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  cursor: default;
+  transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), box-shadow 0.25s ease;
+}
+
+.postit:hover {
+  transform: scale(1.06) rotate(0deg) !important;
+  box-shadow: 8px 12px 0 rgba(0,0,0,0.15) !important;
+  z-index: 10;
+}
+
+/* Doblado esquina inferior derecha */
+.postit::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 28px; height: 28px;
+  background: rgba(0,0,0,0.07);
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  border-radius: 0 0 2px 0;
+}
+
+/* Chincheta */
+.pin {
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 2.5px solid rgba(0,0,0,0.25);
+  z-index: 3;
+}
+
+.pin::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2.5px; height: 7px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 1px;
+}
+
+/* Pestaña superior */
+.postit-tab {
+  height: 26px;
+  border-radius: 2px 2px 0 0;
+  opacity: 0.65;
+}
+
+/* Cuerpo */
+.postit-body {
+  flex: 1;
+  padding: 14px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+/* Líneas de cuaderno */
+.ruled .postit-body {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 27px,
+    rgba(0,0,0,0.06) 27px,
+    rgba(0,0,0,0.06) 28px
+  );
+}
+
+.postit-name {
+  font-family: 'Caveat', cursive;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 2px;
+  border-bottom: 1.5px dashed rgba(0,0,0,0.15);
+  padding-bottom: 8px;
+}
+
+.postit-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.postit-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  opacity: 0.55;
+  min-width: 60px;
+  font-weight: 500;
+}
+
+.cantidad-circle {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Caveat', cursive;
+  font-size: 20px;
+  font-weight: 700;
+  border: 1.5px solid rgba(0,0,0,0.12);
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* ─── Badges de estado ─── */
+.badge-activo   { background: #c8e6c9; color: #1b5e20; }
+.badge-pausa    { background: #fff9c2; color: #7a4f00; }
+.badge-inactivo { background: #ffcdd2; color: #7f0000; }
+
+/* ─────────── COLORES DE CADA POST-IT ─────────── */
+
+/* Amarillo */
+.pi-yellow                { background: #fff9c4; box-shadow: 4px 6px 0 rgba(0,0,0,0.10); }
+.pi-yellow .postit-tab    { background: #f9e224; }
+.pi-yellow .pin           { background: #c0392b; }
+.pi-yellow .postit-name,
+.pi-yellow .postit-label,
+.pi-yellow .postit-row    { color: #5d4e00; }
+.pi-yellow .cantidad-circle { background: #fff176; color: #5d4e00; }
+.pi-yellow .badge-genero  { background: #f9e224; color: #5d4e00; }
+
+/* Verde menta */
+.pi-mint                  { background: #c8f7d8; box-shadow: 4px 6px 0 rgba(0,0,0,0.10); }
+.pi-mint .postit-tab      { background: #5dcaa5; }
+.pi-mint .pin             { background: #922b21; }
+.pi-mint .postit-name,
+.pi-mint .postit-label,
+.pi-mint .postit-row      { color: #084431; }
+.pi-mint .cantidad-circle { background: #a7f0c8; color: #084431; }
+.pi-mint .badge-genero    { background: #5dcaa5; color: #04342c; }
+
+/* Rosa */
+.pi-pink                  { background: #fce4ec; box-shadow: 4px 6px 0 rgba(0,0,0,0.10); }
+.pi-pink .postit-tab      { background: #ed93b1; }
+.pi-pink .pin             { background: #1565c0; }
+.pi-pink .postit-name,
+.pi-pink .postit-label,
+.pi-pink .postit-row      { color: #4a1528; }
+.pi-pink .cantidad-circle { background: #f8bbd0; color: #4a1528; }
+.pi-pink .badge-genero    { background: #ed93b1; color: #4a1528; }
+
+/* Azul */
+.pi-blue                  { background: #ddeeff; box-shadow: 4px 6px 0 rgba(0,0,0,0.10); }
+.pi-blue .postit-tab      { background: #85b7eb; }
+.pi-blue .pin             { background: #6d4c41; }
+.pi-blue .postit-name,
+.pi-blue .postit-label,
+.pi-blue .postit-row      { color: #042c53; }
+.pi-blue .cantidad-circle { background: #b5d4f4; color: #042c53; }
+.pi-blue .badge-genero    { background: #85b7eb; color: #042c53; }
+
+/* Coral */
+.pi-coral                 { background: #ffe0cc; box-shadow: 4px 6px 0 rgba(0,0,0,0.10); }
+.pi-coral .postit-tab     { background: #f0997b; }
+.pi-coral .pin            { background: #283593; }
+.pi-coral .postit-name,
+.pi-coral .postit-label,
+.pi-coral .postit-row     { color: #4a1b0c; }
+.pi-coral .cantidad-circle { background: #f5c4b3; color: #4a1b0c; }
+.pi-coral .badge-genero   { background: #f0997b; color: #4a1b0c; }
+
+/* Lila */
+.pi-purple                { background: #ede7f6; box-shadow: 4px 6px 0 rgba(0,0,0,0.10); }
+.pi-purple .postit-tab    { background: #afa9ec; }
+.pi-purple .pin           { background: #c0392b; }
+.pi-purple .postit-name,
+.pi-purple .postit-label,
+.pi-purple .postit-row    { color: #26215c; }
+.pi-purple .cantidad-circle { background: #cecbf6; color: #26215c; }
+.pi-purple .badge-genero  { background: #afa9ec; color: #26215c; }
+
+/* Ámbar */
+.pi-amber                 { background: #fff8e1; box-shadow: 4px 6px 0 rgba(0,0,0,0.10); }
+.pi-amber .postit-tab     { background: #ef9f27; }
+.pi-amber .pin            { background: #37474f; }
+.pi-amber .postit-name,
+.pi-amber .postit-label,
+.pi-amber .postit-row     { color: #412402; }
+.pi-amber .cantidad-circle { background: #fac775; color: #412402; }
+.pi-amber .badge-genero   { background: #ef9f27; color: #412402; }
+
+/* Teal */
+.pi-teal                  { background: #e0f7f2; box-shadow: 4px 6px 0 rgba(0,0,0,0.10); }
+.pi-teal .postit-tab      { background: #1d9e75; }
+.pi-teal .pin             { background: #b71c1c; }
+.pi-teal .postit-name,
+.pi-teal .postit-label,
+.pi-teal .postit-row      { color: #04342c; }
+.pi-teal .cantidad-circle { background: #9fe1cb; color: #04342c; }
+.pi-teal .badge-genero    { background: #1d9e75; color: #e1f5ee; }
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+  .board   { gap: 24px; }
+  .postit  { width: 170px; }
+}
+
+/* ─── Toolbar ─── */
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.btn-crear {
+  background: #fff8ee;
+  color: #5d4e00;
+  border: 2px solid rgba(0,0,0,0.15);
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-family: 'Caveat', cursive;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-crear:hover {
+  transform: scale(1.05);
+  box-shadow: 2px 3px 0 rgba(0,0,0,0.15);
+}
+
+/* ─── Botones de acción en post-it ─── */
+.postit-acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 6px;
+  border-top: 1px dashed rgba(0,0,0,0.1);
+  padding-top: 8px;
+}
+
+.btn-accion {
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 6px;
+  width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.btn-accion:hover { transform: scale(1.15); background: rgba(255,255,255,0.8); }
+
+/* ─── Modal backdrop ─── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+/* ─── Modal ─── */
+.modal {
+  background: #fff9f0;
+  border-radius: 4px;
+  padding: 28px 32px;
+  width: 360px;
+  max-width: 90vw;
+  box-shadow: 6px 8px 0 rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-titulo {
+  font-family: 'Caveat', cursive;
+  font-size: 24px;
+  font-weight: 700;
+  color: #3a2e00;
+  margin: 0;
+}
+
+.modal-desc {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.modal-desc strong { color: #3a2e00; }
+
+/* ─── Formulario modal ─── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #888;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+  border: 1.5px solid rgba(0,0,0,0.15);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #3a2e00;
+  background: #fffef8;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #f9e224;
+}
+
+/* ─── Footer modal ─── */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.btn-cancelar {
+  background: transparent;
+  border: 1.5px solid rgba(0,0,0,0.15);
+  border-radius: 8px;
+  padding: 7px 18px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  color: #555;
+  transition: background 0.15s;
+}
+.btn-cancelar:hover { background: rgba(0,0,0,0.05); }
+
+.btn-guardar {
+  background: #f9e224;
+  border: 1.5px solid rgba(0,0,0,0.12);
+  border-radius: 8px;
+  padding: 7px 18px;
+  font-family: 'Caveat', cursive;
+  font-size: 16px;
+  font-weight: 700;
+  color: #3a2e00;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.btn-guardar:hover { transform: scale(1.04); box-shadow: 2px 3px 0 rgba(0,0,0,0.12); }
+
+.btn-borrar-confirm {
+  background: #ffcdd2;
+  border: 1.5px solid rgba(0,0,0,0.12);
+  border-radius: 8px;
+  padding: 7px 18px;
+  font-family: 'Caveat', cursive;
+  font-size: 16px;
+  font-weight: 700;
+  color: #7f0000;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.btn-borrar-confirm:hover { transform: scale(1.04); box-shadow: 2px 3px 0 rgba(0,0,0,0.12); }
