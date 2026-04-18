@@ -1,166 +1,139 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { TrabajadorService } from '../../services/trabajador.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TrabajadorService } from '../../services/trabajador.service';
+import { RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-event-component',
   standalone: true,
-  imports: [RouterModule, CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './event.component.html',
-  styleUrls: ['./event.component.scss'],
+  styleUrls: ['./event.component.scss']
 })
 export class EventComponent implements OnInit {
-  
-  noticias: any[] = [];
-  noticiasPaginadas: any[] = [];
 
-  paginaActual: number = 1;
-  itemsPorPagina: number = 5;
-  totalPaginas: number = 0;
+  eventos: any[] = [];
+  loading = true;
+  error = false;
 
-  mostrarModal: boolean = false;
-  modoEdicion: boolean = false;
+  modalAbierto = false;
+  modoEdicion = false;
+  form: any = {};
+  eventoEditandoId: string | null = null;
 
-  noticiaForm: any = {
-    titular: '',
-    tematica: '',
-    contenido: '',
-    genero: '',
-    
-    
-  };
-  
+  modalBorrarAbierto = false;
+  eventoABorrar: any = null;
+  eventoBorrandoId: string | null = null;
+
+  readonly colores = [
+    { border: '#378ADD', badge: '#E6F1FB', badgeText: '#185FA5' },
+    { border: '#1D9E75', badge: '#E1F5EE', badgeText: '#0F6E56' },
+    { border: '#D85A30', badge: '#FAECE7', badgeText: '#993C1D' },
+    { border: '#7F77DD', badge: '#EEEDFE', badgeText: '#3C3489' },
+    { border: '#D4537E', badge: '#FBEAF0', badgeText: '#72243E' },
+    { border: '#BA7517', badge: '#FAEEDA', badgeText: '#854F0B' },
+  ];
+
   constructor(
-    private trabajadorService: TrabajadorService,
-    private cdr: ChangeDetectorRef
-  ){}
+    private trabajadorService: TrabajadorService ,
+    private cdr: ChangeDetectorRef,
+    
+  ) {}
 
   ngOnInit(): void {
-    console.log('INICIO');
-    this.cargar();
+    this.cargarEventos();
   }
-  cargar():void {
+
+  cargarEventos(): void {
+    this.loading = true;
+    this.error = false;
     this.trabajadorService.buscarEventos().subscribe({
-      next: (data : any) => {
-        this.noticias=data;
-        console.log(' Noticias cargadas:', this.noticias.length);
-        this.calcularPaginacion();
-        this.actualizarPagina();
-      },
-      error: (err : any) => console.error('Error noticias:' , err)
-    });
-  }
-  calcularPaginacion(): void {
-    this.totalPaginas = Math.ceil(this.noticias.length / this.itemsPorPagina);
-    if (this.totalPaginas === 0) this.totalPaginas = 1;
-  }
-  actualizarPagina(): void {
-    const inicio = (this.paginaActual - 1) * this.itemsPorPagina;
-    const fin = inicio + this.itemsPorPagina;
-    this.noticiasPaginadas = this.noticias.slice(inicio, fin);
-    this.cdr.detectChanges();
-  }
-  paginaAnterior(): void {
-    if (this.paginaActual > 1) {
-      this.paginaActual--;
-      this.actualizarPagina();
-    }
-  }
-  paginaSiguiente(): void {
-    if (this.paginaActual < this.totalPaginas) {
-      this.paginaActual++;
-      this.actualizarPagina();
-    }
-  }
-  abrirModalCrear(): void {
-    this.modoEdicion = false;
-    this.resetearFormulario();
-    this.mostrarModal = true;
-  }
-  abrirModalEditar(noticia: any): void {
-    this.modoEdicion = true;
-    this.noticiaForm = {
-      _id: noticia._id,
-      titular: noticia.titular || '',
-      tematica: noticia.tematica || '',
-      contenido: noticia.contenido || '',
-      genero: noticia.genero || ''
-    };
-    this.mostrarModal = true;
-  }
-  cerrarModal(): void {
-    this.mostrarModal = false;
-    this.resetearFormulario();
-  }
-  resetearFormulario(): void {
-    this.noticiaForm = {
-      titular: '',
-      tematica:  '',
-      contenido:  '',
-      genero:  ''
-      
-    };
-  }
-  guardarNoticia(): void {
-    
-    if (this.modoEdicion) {
-      this.actualizarNoticia();
-    } else {
-      this.crearNoticia();
-    }
-  }
-  crearNoticia(): void {
-    const nuevaNoticia = {
-      titular: this.noticiaForm.titular ,
-      tematica: this.noticiaForm.tematica ,
-      contenido: this.noticiaForm.contenido ,
-      genero: this.noticiaForm.genero 
-      
-      
-    };
-    this.trabajadorService.crearNoticia(nuevaNoticia).subscribe({
-      next: (response : any) => {
-        console.log(' Usuario creado:', response);
-        alert('Usuario creado correctamente');
-        this.cerrarModal();
-        this.cargar();
-        this.calcularPaginacion();
-        this.actualizarPagina();
+      next: (data: any) => {
+        this.eventos = data;
+        this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err: any) => {
-        console.error(' Error al crear usuario:', err);
-        alert('Error al crear el usuario. Intenta de nuevo.');
-      }
-    });
-  }
-  actualizarNoticia(): void {
-    const noticiaActualizada = {
-      _id: this.noticiaForm._id,
-      titular: this.noticiaForm.titular ,
-      tematica: this.noticiaForm.tematica ,
-      contenido: this.noticiaForm.contenido ,
-      genero: this.noticiaForm.genero 
-      
-      
-    };
-    
-    this.trabajadorService.actualizarNoticia(this.noticiaForm._id, noticiaActualizada).subscribe({
-      next: (response : any) => {
-        console.log('Noticia actualizada:', response);
-        alert('Noticia actualizado correctamente');
-        this.cerrarModal();
-        this.cargar();
-        this.calcularPaginacion();
-        this.actualizarPagina();
-      },
-      error: (err : any) => {
-        console.error('Error al actualizar noticia:', err);
-        alert('Error al actualizar el noticia.');
+        console.error('Error al cargar eventos:', err);
+        this.error = true;
+        this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }
 
+  getColor(index: number) {
+    return this.colores[index % this.colores.length];
+  }
+
+  
+  abrirModalCrear(): void {
+    this.modoEdicion = false;
+    this.form = {};
+    this.eventoEditandoId = null;
+    this.modalAbierto = true;
+  }
+
+
+  abrirModalEditar(evento: any): void {
+    this.modoEdicion = true;
+    this.form = {
+      ...evento,
+      artistas: evento.artista?.map((a: any) => a.nombreArtistico).join(', ') ?? ''
+    };
+    this.eventoEditandoId = evento._id.toString();
+    this.modalAbierto = true;
+  }
+
+  cerrarModal(): void {
+    this.modalAbierto = false;
+    this.form = {};
+  }
+
+  guardarEvento(): void {
+    const payload = {
+      ...this.form,
+      artista: this.form.artistas
+        ? this.form.artistas.split(',').map((a: string) => ({ nombreArtistico: a.trim() })).filter((a: any) => a.nombreArtistico)
+        : []
+    };
+    delete payload.artistas;
+
+    if (this.modoEdicion && this.eventoEditandoId) {
+      this.trabajadorService.actualizarEvento(this.eventoEditandoId, payload).subscribe({
+        next: () => { this.cerrarModal(); this.cargarEventos(); },
+        error: () => { this.error = true; }
+      });
+    } else {
+      this.trabajadorService.crearEvento(payload).subscribe({
+        next: () => { this.cerrarModal(); this.cargarEventos(); },
+        error: () => { this.error = true; }
+      });
+    }
+  }
+
+
+  abrirModalBorrar(evento: any): void {
+    this.eventoABorrar = evento;
+    this.eventoBorrandoId = evento._id.toString();
+    this.modalBorrarAbierto = true;
+  }
+
+  cerrarModalBorrar(): void {
+    this.modalBorrarAbierto = false;
+    this.eventoABorrar = null;
+    this.eventoBorrandoId = null;
+  }
+
+  confirmarBorrar(): void {
+    if (!this.eventoBorrandoId) return;
+    this.error = false;
+    this.trabajadorService.borrarEvento(this.eventoBorrandoId).subscribe({
+      next: () => { this.cerrarModalBorrar(); this.cargarEventos(); },
+      error: () => { this.error = true; }
+    });
+  }
 
 }

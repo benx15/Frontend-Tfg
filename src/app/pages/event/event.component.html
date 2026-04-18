@@ -1,119 +1,154 @@
-<div class="dashboard-container">
+<!-- eventos.component.html -->
+<div class="page">
 
-  <nav class="navbar">
-    <h2>Dashboard Trabajador</h2>
-  </nav>
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <button class="btn-new" (click)="abrirModalCrear()">+ Nuevo evento</button>
+  </div>
 
-  <div class="content">
+  <!-- Loading / Error -->
+  <div class="feedback" *ngIf="loading">Cargando eventos...</div>
+  <div class="feedback error-msg" *ngIf="error && !loading">Error al cargar los eventos.</div>
 
-    <div class="header-actions">
-      <button class="btn-crear" (click)="abrirModalCrear()">
-        <span>+</span> Crear Noticia
-      </button>
-    </div>
+  <!-- Grid de tarjetas -->
+  <div class="cards-grid" *ngIf="!loading && !error">
 
-    <div class="tabla-container" *ngIf="noticias.length > 0; else noData">
-      <table class="tabla-usuarios">
-        <thead>
-          <tr>
-            <th>Titular</th>
-            <th>Tematica</th>
-            <th>Genero</th>
-            <th></th>
-            
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let noticia of noticiasPaginadas">
-            <td>{{ noticia.titular }}</td>
-            <td>{{ noticia.tematica }}</td>
-            <td>{{ noticia.genero }}</td>
-            
-            
-            <td class="acciones">
-              <button class="btn-editar" (click)="abrirModalEditar(noticia)">
-                Editar
-              </button>
-              
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div
+      class="event-card"
+      *ngFor="let evento of eventos; let i = index"
+      [style.border-left-color]="getColor(i).border"
+    >
+      <div class="card-header">
+        <div class="card-title">{{ evento.nombre }}</div>
+        <span
+          class="card-genre"
+          [style.background]="getColor(i).badge"
+          [style.color]="getColor(i).badgeText"
+        >{{ evento.genero }}</span>
+      </div>
 
-      <div class="paginacion">
-        <button class="btn-pag" (click)="paginaAnterior()" [disabled]="paginaActual === 1">
-          ← Anterior
-        </button>
+      <div class="card-body">
+        <div class="card-row">
+          <span class="label">Fecha</span>
+          <span class="val">{{ evento.fecha }}</span>
+        </div>
+        <div class="card-row">
+          <span class="label">Ubicación</span>
+          <span class="val">{{ evento.ubicacion }}</span>
+        </div>
+        <div class="card-row">
+          <span class="label">Precio</span>
+          <span class="val price-badge">{{ evento.precio }} €</span>
+        </div>
+        <div class="card-row">
+          <span class="label">Artistas</span>
+          <div class="artists-list">
+            <span class="artist-chip" *ngFor="let a of evento.artista">
+              {{ a.nombreArtistico }}
+            </span>
+          </div>
+        </div>
+        <div class="card-row">
+          <span class="label">Aforo</span>
+          <span class="val">{{ evento.aforo }}</span>
+        </div>
+      </div>
 
-        <span class="info-pag">
-          Página {{ paginaActual }} de {{ totalPaginas }}
-        </span>
-
-        <button class="btn-pag" (click)="paginaSiguiente()" [disabled]="paginaActual === totalPaginas">
-          Siguiente →
-        </button>
+      <div class="card-footer">
+        <button class="btn-icon" (click)="abrirModalEditar(evento)">✏ Editar</button>
+        <button class="btn-icon btn-delete" (click)="abrirModalBorrar(evento)">✕ Eliminar</button>
       </div>
     </div>
 
-    <ng-template #noData>
-      <p>No hay usuarios registrados</p>
-    </ng-template>
-
-  </div>
-
-
-  <div class="modal-overlay" *ngIf="mostrarModal" (click)="cerrarModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-
-      <h3>{{ modoEdicion ? 'Editar Noticia' : 'Crear Noticia' }}</h3>
-
-      <form (ngSubmit)="guardarNoticia()">
-
-        <div class="form-group">
-          <label>Titular *</label>
-          <input type="text"
-                [(ngModel)]="noticiaForm.titular"
-                name="titular"
-                required>
-        </div>
-
-        <div class="form-group">
-          <label>Tematica *</label>
-          <select [(ngModel)]="noticiaForm.tematica" name="tematica" required>
-            <option value="Album o EP">Album o EP</option>
-            <option value="Quedadas">Quedadas</option>
-            <option value="Grupos">Grupos</option>
-            <option value="Otros">Otros</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Contenido *</label>
-          <input type="text"
-                [(ngModel)]="noticiaForm.contenido"
-                name="contenido"
-                required>
-        </div>
-        <div class="form-group">
-          <label>Genero *</label>
-          <input type="text"
-                [(ngModel)]="noticiaForm.genero"
-                name="genero"
-                required>
-        </div>
-
-        <div class="form-actions">
-          <button type="button" (click)="cerrarModal()">
-            Cancelar
-          </button>
-
-          <button type="submit">
-            {{ modoEdicion ? 'Actualizar' : 'Crear' }}
-          </button>
-        </div>
-
-      </form>
-
+    <div class="empty-state" *ngIf="eventos.length === 0">
+      No hay eventos registrados.
     </div>
   </div>
+</div>
 
+<!-- ── Modal Crear / Editar ── -->
+<div class="modal-overlay" *ngIf="modalAbierto">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">{{ modoEdicion ? 'Editar evento' : 'Nuevo evento' }}</span>
+      <button class="modal-close" (click)="cerrarModal()">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-grid">
+
+        <div class="form-group form-full">
+          <label>Nombre</label>
+          <input type="text" [(ngModel)]="form.nombre" placeholder="Nombre del evento" />
+        </div>
+
+        <div class="form-group">
+          <label>Precio (€)</label>
+          <input type="number" [(ngModel)]="form.precio" placeholder="Mín. 20" min="20" />
+        </div>
+
+        <div class="form-group">
+          <label>Aforo</label>
+          <input type="number" [(ngModel)]="form.aforo" placeholder="Mín. 50" min="50" />
+        </div>
+
+        <div class="form-group">
+          <label>Fecha</label>
+          <input type="datetime-local" [(ngModel)]="form.fecha" />
+        </div>
+
+        <div class="form-group">
+          <label>Género</label>
+          <select [(ngModel)]="form.genero">
+            <option value="">Seleccionar...</option>
+            <option>Electronic</option>
+            <option>Rock</option>
+            <option>Jazz</option>
+            <option>Pop</option>
+            <option>Reggaeton</option>
+            <option>Flamenco</option>
+          </select>
+        </div>
+
+        <div class="form-group form-full">
+          <label>Ubicación</label>
+          <input type="text" [(ngModel)]="form.ubicacion" placeholder="Ciudad, Recinto..." />
+        </div>
+
+        <div class="form-group form-full">
+          <label>Artistas (separados por coma)</label>
+          <input type="text" [(ngModel)]="form.artistas" placeholder="DJ Snake, Bad Bunny..." />
+        </div>
+
+        <div class="form-group form-full">
+          <label>Descripción</label>
+          <textarea [(ngModel)]="form.descripcion" placeholder="Descripción del evento..."></textarea>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-cancel" (click)="cerrarModal()">Cancelar</button>
+      <button class="btn-save" (click)="guardarEvento()">
+        {{ modoEdicion ? 'Guardar cambios' : 'Crear evento' }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Modal Confirmar Eliminar ── -->
+<div class="modal-overlay" *ngIf="modalBorrarAbierto">
+  <div class="confirm-modal">
+    <div class="confirm-icon">⚠</div>
+    <div class="confirm-title">Eliminar evento</div>
+    <div class="confirm-text">
+      ¿Seguro que quieres eliminar <strong>{{ eventoABorrar?.nombre }}</strong>?
+      Esta acción no se puede deshacer.
+    </div>
+    <div class="confirm-btns">
+      <button class="btn-cancel" (click)="cerrarModalBorrar()">Cancelar</button>
+      <button class="btn-danger" (click)="confirmarBorrar()">Eliminar</button>
+    </div>
+  </div>
 </div>
