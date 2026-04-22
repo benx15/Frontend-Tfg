@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ClienteService {
-  private apiUrl = 'http://localhost:3000/cliente'; 
+  private apiUrl = 'blogcert-backend.up.railway.app/cliente'; 
 
   constructor(private http: HttpClient) {}
 

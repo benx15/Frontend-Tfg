@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class LoginService {
 
-    private apiUrl = 'http://localhost:3000/api/usuarios';
+    private apiUrl = 'hblogcert-backend.up.railway.app/api/usuarios';
   
     constructor(private http: HttpClient) {}
   
