@@ -19,6 +19,7 @@
             <th>Titular</th>
             <th>Tematica</th>
             <th>Genero</th>
+            <th>Autor</th>
             <th></th>
             
           </tr>
@@ -28,12 +29,16 @@
             <td>{{ noticia.titular }}</td>
             <td>{{ noticia.tematica }}</td>
             <td>{{ noticia.genero }}</td>
+            <td>{{ noticia.autor.name }} {{ noticia.autor.lastName }} </td>
             
             
             <td class="acciones">
               <button class="btn-editar" (click)="abrirModalEditar(noticia)">
                 Editar
               </button>
+              <button class="btn-eliminar" (click)="borrarNoticia(noticia._id)">
+                  Borrar
+                </button>
               
             </td>
           </tr>
@@ -56,7 +61,7 @@
     </div>
 
     <ng-template #noData>
-      <p>No hay usuarios registrados</p>
+      <p>No hay noticias registradas</p>
     </ng-template>
 
   </div>

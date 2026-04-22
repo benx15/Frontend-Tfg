@@ -8,7 +8,6 @@
   </header>
 
   <div class="toolbar">
-    <p>loading: {{ loading }} | error: {{ error }} | grupos: {{ grupos.length }}</p>
     <button class="btn-crear" (click)="abrirModalCrear()">+ Nuevo grupo</button>
   </div>
 
@@ -39,7 +38,7 @@
 
         <div class="postit-acciones">
           <button class="btn-accion btn-editar" (click)="abrirModalEditar(grupo)" title="Editar">✏️</button>
-          <button class="btn-accion btn-borrar" (click)="abrirModalEditar(grupo)" title="Borrar">🗑️</button>
+          <button class="btn-accion btn-borrar" (click)="abrirModalBorrar(grupo)" title="Borrar">🗑️</button>
         </div>
       </div>
     </div>
@@ -58,7 +57,15 @@
 
     <div class="form-group">
       <label>Género</label>
-      <input type="text" [(ngModel)]="form.genero" placeholder="Nombre del grupo" />
+      <select [(ngModel)]="form.genero">
+            <option value="">Seleccionar...</option>
+            <option>Electronica</option>
+            <option>Rock</option>
+            <option>Jazz</option>
+            <option>Pop</option>
+            <option>Reggaeton</option>
+            <option>Flamenco</option>
+          </select>
     </div>
 
     

@@ -28,7 +28,13 @@ import { filter } from 'rxjs/operators';
       this.router.events.pipe(
         filter(event => event instanceof NavigationEnd)
       ).subscribe((event: any) => {
-        this.mostrarHeaderFooter = !event.url.includes('/login') && !event.url.includes('/registro');
+        this.mostrarHeaderFooter = !event.url.includes('/login') 
+        && !event.url.includes('/registro')
+        && !event.url.includes('/admin/add')
+        && !event.url.includes('/admin/list')
+        && !event.url.includes('/worker/list-news')
+        && !event.url.includes('/worker/list-groups')
+        && !event.url.includes('/worker/list-events');
       });
     }
   }

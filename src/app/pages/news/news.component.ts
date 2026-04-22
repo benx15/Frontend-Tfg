@@ -116,22 +116,26 @@ export class NewsComponent implements OnInit {
       titular: this.noticiaForm.titular ,
       tematica: this.noticiaForm.tematica ,
       contenido: this.noticiaForm.contenido ,
-      genero: this.noticiaForm.genero 
-      
+      genero: this.noticiaForm.genero, 
+      autor: {
+        id: localStorage.getItem('usuarioId'),
+        name: localStorage.getItem('nombre'),
+        lastName: localStorage.getItem('apellido')
+      }
       
     };
     this.trabajadorService.crearNoticia(nuevaNoticia).subscribe({
       next: (response : any) => {
-        console.log(' Usuario creado:', response);
-        alert('Usuario creado correctamente');
+        console.log(' Noticia creada:', response);
+        alert('Noticia creada correctamente');
         this.cerrarModal();
         this.cargar();
         this.calcularPaginacion();
         this.actualizarPagina();
       },
       error: (err: any) => {
-        console.error(' Error al crear usuario:', err);
-        alert('Error al crear el usuario. Intenta de nuevo.');
+        console.error(' Error al crear noticia:', err);
+        alert('Error al crear el noticia. Intenta de nuevo.');
       }
     });
   }
@@ -141,7 +145,7 @@ export class NewsComponent implements OnInit {
       titular: this.noticiaForm.titular ,
       tematica: this.noticiaForm.tematica ,
       contenido: this.noticiaForm.contenido ,
-      genero: this.noticiaForm.genero 
+      genero: this.noticiaForm.genero,
       
       
     };
@@ -158,6 +162,30 @@ export class NewsComponent implements OnInit {
       error: (err : any) => {
         console.error('Error al actualizar noticia:', err);
         alert('Error al actualizar el noticia.');
+      }
+    });
+  }
+  borrarNoticia(id: string): void {
+    if (!confirm('¿Estás seguro de que deseas eliminar esta noticia?')) {
+      return;
+    }
+    
+    this.trabajadorService.borrarNoticia(id).subscribe({
+      next: (response) => {
+        console.log('Noticia eliminada:', response);
+        alert('Noticia eliminada correctaamente');
+        this.noticias = this.noticias.filter(n => n._id !== id);
+        this.calcularPaginacion();
+      
+        if (this.noticiasPaginadas.length === 1 && this.paginaActual > 1) {
+          this.paginaActual--;
+        }
+      
+        this.actualizarPagina();
+      },
+      error: (err: any) => {
+        console.error(' Error al eliminar noticia:', err);
+        alert('Error al eliminar una noticia. Intente de nuevo.');
       }
     });
   }

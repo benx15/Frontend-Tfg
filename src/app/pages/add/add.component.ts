@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdminService } from '../../services/admin.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-component',
@@ -24,10 +25,11 @@ export class AddComponent implements OnInit{
     };
     constructor(
         private adminService: AdminService,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
+        private router: Router
     ){}
     ngOnInit(): void {
-       
+      
     }
     
     resetearFormulario(): void {
@@ -55,6 +57,7 @@ export class AddComponent implements OnInit{
           next: (response) => {
             console.log(' Usuario creado:', response);
             alert('Usuario creado correctamente');
+            this.router.navigate(['/admin'])
           },
           error: (err) => {
             console.error(' Error al crear usuario:', err);

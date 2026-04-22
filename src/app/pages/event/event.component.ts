@@ -3,7 +3,7 @@ import { TrabajadorService } from '../../services/trabajador.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
+import { ArtistaService } from '../../services/artista.service';
 
 @Component({
   selector: 'app-event-component',
@@ -15,6 +15,8 @@ import { RouterModule } from '@angular/router';
 export class EventComponent implements OnInit {
 
   eventos: any[] = [];
+  artistas: any[] = [];
+  artistasSeleccionados: any[] = [];
   loading = true;
   error = false;
 
@@ -39,13 +41,19 @@ export class EventComponent implements OnInit {
   constructor(
     private trabajadorService: TrabajadorService ,
     private cdr: ChangeDetectorRef,
-    
+    private artistaService: ArtistaService
   ) {}
 
   ngOnInit(): void {
     this.cargarEventos();
+    this.cargarArtistas();
   }
-
+  cargarArtistas(): void {
+    this.artistaService.getArtistas().subscribe({
+        next: (data: any) => this.artistas = data,
+        error: (err: any) => console.error('Error al cargar artistas:', err)
+    });
+  }
   cargarEventos(): void {
     this.loading = true;
     this.error = false;
@@ -79,10 +87,21 @@ export class EventComponent implements OnInit {
 
   abrirModalEditar(evento: any): void {
     this.modoEdicion = true;
+    this.artistasSeleccionados = evento.artista ? [...evento.artista] : [];
+
+    // Convertir la fecha ISO al formato que entiende datetime-local
+    let fechaFormateada = '';
+    if (evento.fecha) {
+        const fecha = new Date(evento.fecha);
+        // Formato YYYY-MM-DDTHH:mm
+        fechaFormateada = fecha.toISOString().slice(0, 16);
+    }
+
     this.form = {
-      ...evento,
-      artistas: evento.artista?.map((a: any) => a.nombreArtistico).join(', ') ?? ''
+        ...evento,
+        fecha: fechaFormateada // ← sobreescribir con el formato correcto
     };
+
     this.eventoEditandoId = evento._id.toString();
     this.modalAbierto = true;
   }
@@ -90,27 +109,44 @@ export class EventComponent implements OnInit {
   cerrarModal(): void {
     this.modalAbierto = false;
     this.form = {};
+    this.artistasSeleccionados = [];
   }
+
+  estaSeleccionado(id: string): boolean {
+    return this.artistasSeleccionados.some(a => a._id === id);
+  }
+
+  onArtistaChange(event: any, artista: any): void {
+    if (event.target.checked) {
+        this.artistasSeleccionados.push({
+            _id: artista._id,
+            nombreArtistico: artista.nombreArtistico
+        });
+    } else {
+        this.artistasSeleccionados = this.artistasSeleccionados.filter(
+            a => a._id !== artista._id
+        );
+    }
+  }
+
 
   guardarEvento(): void {
     const payload = {
-      ...this.form,
-      artista: this.form.artistas
-        ? this.form.artistas.split(',').map((a: string) => ({ nombreArtistico: a.trim() })).filter((a: any) => a.nombreArtistico)
-        : []
+        ...this.form,
+        artista: this.artistasSeleccionados // ← usar los seleccionados
     };
     delete payload.artistas;
 
     if (this.modoEdicion && this.eventoEditandoId) {
-      this.trabajadorService.actualizarEvento(this.eventoEditandoId, payload).subscribe({
-        next: () => { this.cerrarModal(); this.cargarEventos(); },
-        error: () => { this.error = true; }
-      });
+        this.trabajadorService.actualizarEvento(this.eventoEditandoId, payload).subscribe({
+            next: () => { this.cerrarModal(); this.cargarEventos(); },
+            error: () => { this.error = true; }
+        });
     } else {
-      this.trabajadorService.crearEvento(payload).subscribe({
-        next: () => { this.cerrarModal(); this.cargarEventos(); },
-        error: () => { this.error = true; }
-      });
+        this.trabajadorService.crearEvento(payload).subscribe({
+            next: () => { this.cerrarModal(); this.cargarEventos(); },
+            error: () => { this.error = true; }
+        });
     }
   }
 
