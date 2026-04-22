@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class EventosService {
 
-  private url = 'blogcert-backend.up.railway.app/api/eventos/mostrar';
+  private url = 'https://blogcert-backend.up.railway.app/api/eventos/mostrar';
 
   constructor(private http: HttpClient) {}
 

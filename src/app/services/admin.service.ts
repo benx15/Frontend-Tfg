@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   })
 export class AdminService {
 
-  private apiUrl = 'blogcert-backend.up.railway.app/admin';
+  private apiUrl = 'https://blogcert-backend.up.railway.app/admin';
     
   constructor(private http: HttpClient) {}
 

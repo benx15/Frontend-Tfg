@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class GruposService {
 
-  private url = 'blogcert-backend.up.railway.app/api/grupos/buscarTodas';
+  private url = 'https://blogcert-backend.up.railway.app/api/grupos/buscarTodas';
 
   constructor(private http: HttpClient) {}
 
