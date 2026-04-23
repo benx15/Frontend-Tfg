@@ -17,10 +17,10 @@ export class HeroComponent implements OnInit, OnDestroy {
 
   currentVideoIndex = 0;
   videos = [
-    'assets/videos/hero-video-1.mp4',
-    'assets/videos/hero-video-2.mp4',
-    'assets/videos/hero-video-3.mp4',
-    'assets/videos/hero-video-4.mp4',
+    'https://res.cloudinary.com/tfgmulti/video/upload/v1776987240/hero-video-1_z2nbga.mp4',
+    'https://res.cloudinary.com/tfgmulti/video/upload/v1776987240/hero-video-2_znelg1.mp4',
+    'https://res.cloudinary.com/tfgmulti/video/upload/v1776987241/hero-video-3_wkxz8k.mp4',
+    'https://res.cloudinary.com/tfgmulti/video/upload/v1776987242/hero-video-4_b96idd.mp4',
   ];
 
   ngOnInit(): void {}

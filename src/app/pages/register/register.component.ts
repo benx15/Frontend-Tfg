@@ -18,10 +18,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
   user = { username: '', password: '', name: '', lastName: '',  age: '' , email: ''  };
 
   rawImages: string[] = [
-    'assets/bg1.jpg',
-    'assets/bg2.jpg',
-    'assets/bg3.jpg',
-    'assets/bg4.jpg',
+    'https://res.cloudinary.com/tfgmulti/image/upload/v1776987184/bg1_i3vyfr.jpg',
+    'https://res.cloudinary.com/tfgmulti/image/upload/v1776987184/bg2_n9oou1.jpg',
+    'https://res.cloudinary.com/tfgmulti/image/upload/v1776987184/bg3_jnvk58.jpg',
+    'https://res.cloudinary.com/tfgmulti/image/upload/v1776987185/bg4_vjvgwt.jpg',
   ];
   currentSlide = 0;
   private carouselInterval: any;
