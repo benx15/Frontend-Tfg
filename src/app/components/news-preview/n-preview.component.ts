@@ -1,70 +1,74 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
-interface News {
-  id: number;
-  title: string;
-  excerpt: string;
-  category: 'concierto' | 'quedada' | 'album' | 'otra';
-  icon: string;
-  date: string;
-  author: string;
-}
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NoticiasService } from '../../services/noticias.service';
 
 @Component({
   selector: 'app-news-preview',
-  standalone: true,
-  imports: [CommonModule],
+  standalone: true,                         
+  imports: [CommonModule, FormsModule],      
   templateUrl: './n-preview.component.html',
   styleUrls: ['./n-preview.component.scss']
 })
-export class NewsPreviewComponent {
-  newsItems: News[] = [
-    {
-      id: 1,
-      title: 'Concierto de Jazz en el Teatro Principal',
-      excerpt: 'No te pierdas esta velada única con los mejores músicos de jazz de la ciudad.',
-      category: 'concierto',
-      icon: 'fas fa-music',
-      date: '15 Feb 2026',
-      author: 'María García'
-    },
-    {
-      id: 2,
-      title: 'Quedada musical en el parque',
-      excerpt: 'Trae tu instrumento y únete a nosotros para una tarde de música al aire libre.',
-      category: 'quedada',
-      icon: 'fas fa-users',
-      date: '18 Feb 2026',
-      author: 'Juan López'
-    },
-    {
-      id: 3,
-      title: 'Nuevo álbum: "Ecos del Tiempo"',
-      excerpt: 'Ya disponible el esperado álbum de nuestra banda local favorita.',
-      category: 'album',
-      icon: 'fas fa-compact-disc',
-      date: '10 Feb 2026',
-      author: 'Ana Martínez'
-    },
-    {
-      id: 4,
-      title: 'Actualización de la plataforma',
-      excerpt: 'Nuevas funcionalidades disponibles para todos los usuarios.',
-      category: 'otra',
-      icon: 'fas fa-info-circle',
-      date: '12 Feb 2026',
-      author: 'Admin'
-    }
-  ];
+export class NewsPreviewComponent implements OnInit {
+  newsItems: any[] = [];
+  tematicas: string[] = [];
+  tematicaSeleccionada: string = '';
+  searchText: string = '';
 
-  getCategoryLabel(category: string): string {
-    const labels: { [key: string]: string } = {
-      concierto: 'CONCIERTO',
-      quedada: 'QUEDADA',
-      album: 'ÁLBUM',
-      otra: 'OTRA'
+  constructor(private noticiasService: NoticiasService ) {}
+
+  ngOnInit(): void {
+    this.cargarTodas();
+    this.cargarTematicas();
+  }
+
+  cargarTodas(): void {
+    this.noticiasService.buscarTodas().subscribe({
+      next: (data:any) => this.newsItems = data.slice(0,4),
+      error: (err:any) => console.error(err)
+    });
+  }
+
+  cargarTematicas(): void {
+    this.noticiasService.obtenerTematicas().subscribe({
+      next: (data:any) => this.tematicas = data,
+      error: (err:any) => console.error(err)
+    });
+  }
+
+  filtrarPorTema(tematica: string): void {
+    this.tematicaSeleccionada = tematica;
+    this.noticiasService.buscarPorTema(tematica).subscribe({
+      next: (data:any) => this.newsItems = data,
+      error: (err:any) => console.error(err)
+    });
+  }
+
+  buscarPorTitular(): void {
+    this.noticiasService.buscarPorTitular(this.searchText).subscribe({
+      next: (data:any) => this.newsItems = data,
+      error: (err:any) => console.error(err)
+    });
+  }
+
+  limpiarFiltros(): void {
+    this.searchText = '';
+    this.tematicaSeleccionada = '';
+    this.cargarTodas();
+  }
+  sanitize(str: string): string {
+    return str?.replace(/ /g, '-') ?? '';
+  }
+
+  getIcon(tematica: string): string {
+    const iconos: Record<string, string> = {
+      'Grupos':     'fas fa-users',
+      'Quedadas':   'fas fa-calendar-check',
+      'Album o EP': 'fas fa-compact-disc',
+      'Otros':      'fas fa-newspaper'
     };
-    return labels[category] || 'OTRA';
+    return iconos[tematica] ?? 'fas fa-newspaper';
   }
 }

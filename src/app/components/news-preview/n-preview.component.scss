@@ -168,25 +168,25 @@
       .news-meta { font-size: 0.75rem; color: #999; }
     }
 
-    &.concierto {
+    &.Grupos {
       border-left-color: #4a8ad4;
       .news-tag { background: #4a8ad4; }
       .news-icon { background-color: #4a8ad4; }
       &:hover { background: linear-gradient(135deg, #e8f4fd 0%, #ffffff 100%); }
     }
-    &.quedada {
+    &.Quedadas {
       border-left-color: #2fa85f;
       .news-tag { background: #2fa85f; }
       .news-icon { background-color: #2fa85f; }
       &:hover { background: linear-gradient(135deg, #e6f7ea 0%, #ffffff 100%); }
     }
-    &.album {
+    &.Album-o-EP {
       border-left-color: #d96e3f;
       .news-tag { background: #d96e3f; }
       .news-icon { background-color: #d96e3f; }
       &:hover { background: linear-gradient(135deg, #fff4e6 0%, #ffffff 100%); }
     }
-    &.otra {
+    &.Otros {
       border-left-color: #6c757d;
       .news-tag { background: #6c757d; }
       .news-icon { background-color: #6c757d; }
@@ -219,4 +219,65 @@
     .news-textarea { min-height: 50px; resize: vertical; }
     .btn-full { width: 100%; margin-top: 0.5rem; }
   }
+  .news-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: background 0.2s;
+}
+
+.search-input:focus {
+  background: #fff;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.filter-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.filter-btn.active {
+  background: #fff;
+  color: #764ba2;
+  font-weight: 600;
+}
+
+.filter-btn.clear {
+  background: transparent;
+  border: 1px dashed rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.filter-btn.clear:hover {
+  background: rgba(255, 80, 80, 0.25);
+  border-color: rgba(255, 120, 120, 0.7);
+  color: #fff;
+}
+
 }

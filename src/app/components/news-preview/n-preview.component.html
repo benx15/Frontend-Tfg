@@ -1,21 +1,44 @@
 <section class="news">
-    <div class="news-header">
-       Últimas Noticias
+  <div class="news-header">Últimas Noticias</div>
+
+  <div class="news-filters">
+    <input
+      [(ngModel)]="searchText"
+      (input)="buscarPorTitular()"
+      placeholder="Buscar por titular..."
+      class="search-input"
+    />
+    <div class="filter-buttons">
+      <button
+        *ngFor="let t of tematicas"
+        (click)="filtrarPorTema(t)"
+        [class.active]="tematicaSeleccionada === t"
+        class="filter-btn">
+        {{ t }}
+      </button>
+      <button class="filter-btn clear" (click)="limpiarFiltros()">Limpiar</button>
     </div>
-  
-    <div class="news-list">
-      <div class="news-card" 
-           *ngFor="let news of newsItems" 
-           [ngClass]="news.category">
-        <div class="news-icon">
-          <i [class]="news.icon"></i>
+  </div>
+
+  <div class="news-list">
+    <div class="news-card"
+         *ngFor="let noticia of newsItems"
+        [ngClass]="sanitize(noticia.tematica)">
+
+      <div class="news-icon">
+        <i [class]="getIcon(noticia.tematica)"></i>
+      </div>
+
+      <div class="news-content">
+        <span class="news-tag">{{ noticia.tematica }}</span>
+        <h3>{{ noticia.titular }}</h3>
+        <p class="news-excerpt">{{ noticia.contenido }}</p>
+        <div class="news-meta">
+          📅 {{ noticia.fecha }} | ✍️ {{ noticia.autor.name }} {{ noticia.autor.lastName }}
         </div>
-        
-        <div class="news-content">
-          <span class="news-tag">{{ getCategoryLabel(news.category) }}</span>
-          <h3>{{ news.title }}</h3>
-          <p class="news-excerpt">{{ news.excerpt }}</p>
-          <div class="news-meta">
-            📅 {{ news.date }} | ✍️ {{ news.author }}
-          </div>
-        </div>
+      </div>
+    </div>
+
+    <p class="news-empty" *ngIf="newsItems.length === 0">No se encontraron noticias.</p>
+  </div>
+</section>
