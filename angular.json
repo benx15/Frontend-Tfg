@@ -20,11 +20,7 @@
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "src/assets",
-                "output": "/assets"
-              }
+              
             ],
             "styles": [
               "src/styles.css",

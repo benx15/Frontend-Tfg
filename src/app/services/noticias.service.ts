@@ -15,13 +15,13 @@ export class NoticiasService {
         return this.http.get<any[]>(`${this.apiUrl}/mostrarTodas`);
     }
     buscarPorTema(tematica:string):Observable<any[]>{
-        return this.http.get<any[]>(`${this.apiUrl}/busca/${tematica}`);
+        return this.http.get<any[]>(`${this.apiUrl}/buscar/${tematica}`);
     }
     buscarPorTitular(search:string): Observable<any[]>{
         const params = new HttpParams().set('search',search);
         return this.http.get<any[]>(`${this.apiUrl}/buscador`, { params });
     }
     obtenerTematicas(): Observable<string[]> {
-        return this.http.get<string[]>(`${this.apiUrl}/temetica`);
+        return this.http.get<string[]>(`${this.apiUrl}/tematica`);
     }
 }
