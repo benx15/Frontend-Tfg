@@ -1,0 +1,298 @@
+
+<nav class="blog-nav">
+  <button [class.active]="vistaActual === 'inicio'"    (click)="irA('inicio')">
+    <i class="fas fa-home"></i> Inicio
+  </button>
+  <button [class.active]="vistaActual === 'noticias'"  (click)="irA('noticias')">
+    <i class="fas fa-newspaper"></i> Noticias
+  </button>
+  <button [class.active]="vistaActual === 'eventos'"   (click)="irA('eventos')">
+    <i class="fas fa-calendar-alt"></i> Eventos
+  </button>
+  <button [class.active]="vistaActual === 'posts'"     (click)="irA('posts')">
+    <i class="fas fa-comments"></i> Foro
+  </button>
+  <button [class.active]="vistaActual === 'mis-posts'" (click)="irA('mis-posts')">
+    <i class="fas fa-user-edit"></i> Mis Posts
+  </button>
+  <button [class.active]="vistaActual === 'artistas'"  (click)="irA('artistas')">
+    <i class="fas fa-star"></i> Artistas
+  </button>
+</nav>
+
+<div class="alerta-mensaje" *ngIf="mensaje">
+  {{ mensaje }}
+  <button (click)="mensaje = ''">✕</button>
+</div>
+
+
+<section class="container-grid" *ngIf="vistaActual === 'inicio'">
+  <div class="info-card" (click)="irA('noticias')">
+    <div class="card-icon"><i class="fas fa-newspaper"></i></div>
+    <h2>Noticias</h2>
+    <p>Mantente al día con todo lo que pasa.</p>
+    <button class="btn-primary">Ver noticias</button>
+  </div>
+  <div class="info-card" (click)="irA('eventos')">
+    <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
+    <h2>Eventos</h2>
+    <p>Descubre eventos y apúntate a los que más te gusten.</p>
+    <button class="btn-primary">Ver eventos</button>
+  </div>
+  <div class="info-card" (click)="irA('posts')">
+    <div class="card-icon"><i class="fas fa-comments"></i></div>
+    <h2>Foro de grupos</h2>
+    <p>Participa en los debates de tus grupos.</p>
+    <button class="btn-primary">Ir al foro</button>
+  </div>
+  <div class="info-card" (click)="irA('artistas')">
+    <div class="card-icon"><i class="fas fa-star"></i></div>
+    <h2>Mis artistas</h2>
+    <p>Gestiona los artistas que has guardado.</p>
+    <button class="btn-primary">Ver artistas</button>
+  </div>
+</section>
+
+
+<section class="detail-view" *ngIf="vistaActual === 'noticias' && noticiaSeleccionada">
+  <button class="btn-back" (click)="noticiaSeleccionada = null">← Volver</button>
+  <article class="detail-card">
+    <div class="noticia-badges">
+      <span class="badge-tematica">{{ noticiaSeleccionada.tematica }}</span>
+      <span class="badge-genero">{{ noticiaSeleccionada.genero }}</span>
+    </div>
+    <h1>{{ noticiaSeleccionada.titular }}</h1>
+    <p class="post-meta">
+      <i class="fas fa-user"></i> {{ noticiaSeleccionada.autor.name }} {{ noticiaSeleccionada.autor.lastName }}
+      &nbsp;·&nbsp;
+      <i class="fas fa-clock"></i> {{ noticiaSeleccionada.fecha }}
+    </p>
+    <p class="contenido-texto">{{ noticiaSeleccionada.contenido }}</p>
+  </article>
+</section>
+
+<section class="lista-section" *ngIf="vistaActual === 'noticias' && !noticiaSeleccionada">
+  <h2 class="section-title"><i class="fas fa-newspaper"></i> Últimas noticias</h2>
+  <p class="vacio" *ngIf="noticiasMostradas.length === 0">No hay noticias disponibles.</p>
+  <div class="cards-grid">
+    <article class="card" *ngFor="let noticia of noticiasMostradas" (click)="verNoticia(noticia)">
+      <div class="card-tags">
+        <span class="badge-tematica">{{ noticia.tematica }}</span>
+        <span class="badge-genero">{{ noticia.genero }}</span>
+      </div>
+      <h3>{{ noticia.titular }}</h3>
+      <p class="card-preview">{{ noticia.contenido | slice:0:130 }}...</p>
+      <div class="card-footer">
+        <span class="meta-fecha">{{ noticia.fecha }}</span>
+        <span class="badge">Leer →</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+
+<section class="lista-section" *ngIf="vistaActual === 'eventos'">
+  <h2 class="section-title"><i class="fas fa-calendar-alt"></i> Próximos eventos</h2>
+  <p class="vacio" *ngIf="eventosMostrados.length === 0">No hay eventos disponibles.</p>
+  <div class="cards-grid">
+    <article class="card evento-card" *ngFor="let evento of eventosMostrados">
+      <div class="card-tags">
+        <span class="badge-genero">{{ evento.genero }}</span>
+      </div>
+      <h3>{{ evento.nombre }}</h3>
+      <p class="card-preview">{{ evento.descripcion | slice:0:110 }}...</p>
+      <div class="evento-info">
+        <span><i class="fas fa-map-marker-alt"></i> {{ evento.ubicacion }}</span>
+        <span><i class="fas fa-users"></i> Aforo: {{ evento.aforo }}</span>
+        <span><i class="fas fa-ticket-alt"></i> {{ evento.precio }}€</span>
+      </div>
+      <div class="evento-footer">
+        <span class="meta-fecha"><i class="fas fa-clock"></i> {{ evento.fecha }}</span>
+        <button
+          class="btn-apuntarse"
+          [class.apuntado]="estaApuntado(evento._id)"
+          [disabled]="estaApuntado(evento._id)"
+          (click)="apuntarseEvento(evento)">
+          <i class="fas"
+            [class.fa-check]="estaApuntado(evento._id)"
+            [class.fa-plus]="!estaApuntado(evento._id)"></i>
+          {{ estaApuntado(evento._id) ? 'Apuntado' : 'Apuntarme' }}
+        </button>
+      </div>
+    </article>
+  </div>
+</section>
+
+
+════════════════════════════════════════════ -->
+<section class="detail-view" *ngIf="vistaActual === 'posts' && postSeleccionado">
+  <button class="btn-back" (click)="postSeleccionado = null">← Volver al grupo</button>
+
+  <article class="detail-card post-detail">
+    <h1>{{ postSeleccionado.titulo }}</h1>
+    <p class="post-meta">
+      <i class="fas fa-user"></i> {{ postSeleccionado.autor.username }}
+      &nbsp;·&nbsp;
+      <i class="fas fa-clock"></i> {{ postSeleccionado.fecha }}
+      &nbsp;·&nbsp;
+      <i class="fas fa-users"></i> {{ postSeleccionado.grupo.nombre }}
+    </p>
+    <p class="contenido-texto">{{ postSeleccionado.contenido }}</p>
+
+    <div class="votos-bar">
+      <button
+        class="voto-btn like-btn"
+        [class.activo]="postSeleccionado.miVoto === 'like'"
+        (click)="votar(postSeleccionado, 'like')">
+        <i class="fas fa-thumbs-up"></i>
+        <span>{{ postSeleccionado.likes }}</span>
+      </button>
+      <button
+        class="voto-btn dislike-btn"
+        [class.activo]="postSeleccionado.miVoto === 'dislike'"
+        (click)="votar(postSeleccionado, 'dislike')">
+        <i class="fas fa-thumbs-down"></i>
+        <span>{{ postSeleccionado.dislikes }}</span>
+      </button>
+    </div>
+  </article>
+
+  <div class="respuestas-section">
+    <h3>{{ postSeleccionado.respuestas.length }} respuestas</h3>
+
+    <div class="respuesta-item" *ngFor="let r of postSeleccionado.respuestas">
+      <div class="respuesta-header">
+        <strong>{{ r.autor.username }}</strong>
+        <span class="meta-fecha">{{ r.fechaPublicacion }}</span>
+      </div>
+      <p>{{ r.contenido }}</p>
+    </div>
+
+    <div class="form-respuesta">
+      <textarea [(ngModel)]="nuevaRespuesta" placeholder="Escribe tu respuesta..."></textarea>
+      <button
+        class="btn-primary"
+        (click)="enviarRespuesta()"
+        [disabled]="cargando || !nuevaRespuesta">
+        <i class="fas fa-reply"></i> Responder
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<section class="lista-section" *ngIf="vistaActual === 'posts' && !postSeleccionado">
+
+  <h2 class="section-title"><i class="fas fa-comments"></i> Foro — Posts de mis grupos</h2>
+
+  <div class="form-nuevo-post">
+    <h3><i class="fas fa-pen"></i> Crear nuevo post</h3>
+    <select (change)="seleccionarGrupoParaPost($any($event.target).value)">
+      <option value="">— Selecciona un grupo —</option>
+      <option *ngFor="let g of grupos" [value]="g._id">{{ g.nombre }}</option>
+    </select>
+    <input type="text" [(ngModel)]="nuevoPost.titulo" placeholder="Título del post" />
+    <textarea [(ngModel)]="nuevoPost.contenido" placeholder="¿Qué quieres contar?"></textarea>
+    <button
+      class="btn-primary"
+      (click)="publicarPost()"
+      [disabled]="cargando || !nuevoPost.titulo || !nuevoPost.contenido || !grupoSeleccionado">
+      <i class="fas fa-paper-plane"></i> Publicar
+    </button>
+  </div>
+
+  <p class="cargando" *ngIf="cargando">Cargando posts...</p>
+  <p class="vacio" *ngIf="posts.length === 0 && !cargando">
+    Aún no hay posts en este grupo. ¡Sé el primero!
+  </p>
+
+  <div class="posts-lista">
+    <article class="post-card" *ngFor="let post of posts">
+      <div class="post-card-body" (click)="verPost(post)">
+        <h3>{{ post.titulo }}</h3>
+        <p class="card-preview">{{ post.contenido | slice:0:120 }}...</p>
+        <div class="post-card-meta">
+          <span><i class="fas fa-user"></i> {{ post.autor.username }}</span>
+          <span><i class="fas fa-reply"></i> {{ post.respuestas.length }} respuestas</span>
+          <span class="meta-fecha">{{ post.fecha }}</span>
+        </div>
+      </div>
+      <div class="votos-inline">
+        <button
+          class="voto-btn like-btn"
+          [class.activo]="post.miVoto === 'like'"
+          (click)="votar(post, 'like')">
+          <i class="fas fa-thumbs-up"></i>
+          <span>{{ post.likes }}</span>
+        </button>
+        <button
+          class="voto-btn dislike-btn"
+          [class.activo]="post.miVoto === 'dislike'"
+          (click)="votar(post, 'dislike')">
+          <i class="fas fa-thumbs-down"></i>
+          <span>{{ post.dislikes }}</span>
+        </button>
+      </div>
+    </article>
+  </div>
+</section>
+
+
+
+
+<section class="lista-section" *ngIf="vistaActual === 'mis-posts'">
+  <h2 class="section-title"><i class="fas fa-user-edit"></i> Mis publicaciones</h2>
+
+  <div class="tabs">
+    <button [class.tab-active]="tabActiva === 'posts'"      (click)="tabActiva = 'posts'">
+      Mis Posts ({{ misPosts.length }})
+    </button>
+    <button [class.tab-active]="tabActiva === 'respuestas'" (click)="tabActiva = 'respuestas'">
+      Mis Respuestas ({{ misRespuestas.length }})
+    </button>
+  </div>
+
+  <p class="cargando" *ngIf="cargando">Cargando...</p>
+
+  <div *ngIf="tabActiva === 'posts'">
+    <p class="vacio" *ngIf="misPosts.length === 0 && !cargando">Aún no has publicado nada.</p>
+    <div class="cards-grid">
+      <article class="card" *ngFor="let post of misPosts">
+        <h3>{{ post.titulo }}</h3>
+        <p class="card-preview">{{ post.contenido | slice:0:100 }}...</p>
+        <div class="card-footer">
+          <span><i class="fas fa-users"></i> {{ post.grupo?.nombre }}</span>
+          <span class="meta-fecha">{{ post.fecha }}</span>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div *ngIf="tabActiva === 'respuestas'">
+    <p class="vacio" *ngIf="misRespuestas.length === 0 && !cargando">
+      Aún no has respondido ningún post.
+    </p>
+    <div class="cards-grid">
+      <article class="card" *ngFor="let item of misRespuestas">
+        <p class="respuesta-en">En: <strong>{{ item.publicacion?.titulo }}</strong></p>
+        <p class="card-preview">{{ item.respuesta?.contenido | slice:0:100 }}...</p>
+        <span class="meta-fecha">{{ item.respuesta?.fechaPublicacion }}</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<section class="lista-section" *ngIf="vistaActual === 'artistas'">
+  <h2 class="section-title"><i class="fas fa-star"></i> Mis artistas favoritos</h2>
+  <p class="cargando" *ngIf="cargando">Cargando...</p>
+  <p class="vacio" *ngIf="misArtistas.length === 0 && !cargando">
+    No tienes artistas guardados todavía.
+  </p>
+  <div class="artistas-grid">
+    <div class="artista-chip" *ngFor="let artista of misArtistas">
+      <i class="fas fa-music"></i>
+      <span>{{ artista.nombreArtistico }}</span>
+    </div>
+  </div>
+</section>

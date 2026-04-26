@@ -57,7 +57,7 @@ export class SinGrupoComponent implements OnInit {
     this.clienteService.agregarUsuarioAGrupo(payload).subscribe({
       next: () => {
         alert('Te has unido al grupo correctamente');
-        this.router.navigate(['/user']);
+        this.router.navigate(['/blog']);
       },
       error: err => alert(err.error.mensaje)
     });

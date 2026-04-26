@@ -1,16 +1,14 @@
 <!-- eventos.component.html -->
 <div class="page">
 
-  <!-- Toolbar -->
+
   <div class="toolbar">
     <button class="btn-new" (click)="abrirModalCrear()">+ Nuevo evento</button>
   </div>
 
-  <!-- Loading / Error -->
   <div class="feedback" *ngIf="loading">Cargando eventos...</div>
   <div class="feedback error-msg" *ngIf="error && !loading">Error al cargar los eventos.</div>
 
-  <!-- Grid de tarjetas -->
   <div class="cards-grid" *ngIf="!loading && !error">
 
     <div
@@ -66,7 +64,6 @@
   </div>
 </div>
 
-<!-- ── Modal Crear / Editar ── -->
 <div class="modal-overlay" *ngIf="modalAbierto">
   <div class="modal">
     <div class="modal-header">
@@ -148,7 +145,6 @@
   </div>
 </div>
 
-<!-- ── Modal Confirmar Eliminar ── -->
 <div class="modal-overlay" *ngIf="modalBorrarAbierto">
   <div class="confirm-modal">
     <div class="confirm-icon">⚠</div>

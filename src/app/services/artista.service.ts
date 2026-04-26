@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ArtistaService {
-    private apiUrl = 'blogcert-backend.up.railway.app/artistas';
+    private apiUrl = 'https://blogcert-backend.up.railway.app/artistas';
 
     constructor(private http: HttpClient) {}
 

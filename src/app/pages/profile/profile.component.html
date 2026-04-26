@@ -1,0 +1,54 @@
+﻿<section class="profile-page">
+  <div class="profile-hero">
+    <h1>Mi perfil</h1>
+    <p>Gestiona tu cuenta y revisa los eventos a los que te has unido.</p>
+  </div>
+
+  <div class="profile-layout">
+    <article class="profile-card">
+      <div class="profile-avatar-wrap">
+        <img [src]="profileImageUrl" alt="Foto de perfil" class="profile-avatar" />
+        <label class="avatar-upload-btn">
+          Cambiar foto
+          <input type="file" accept="image/*" (change)="onImageSelected($event)" />
+        </label>
+      </div>
+
+      <div class="profile-info">
+        <h2>{{ userName }}</h2>
+        <p class="profile-line"><i class="fas fa-user"></i> Usuario: {{ userName }}</p>
+        <p class="profile-line"><i class="fas fa-envelope"></i> Correo: {{ maskedEmail }}</p>
+        <p class="profile-note">Tu correo se mantiene oculto para el resto de usuarios.</p>
+      </div>
+    </article>
+
+    <article class="events-card">
+      <header>
+        <h2>Eventos en los que he participado</h2>
+        <span>{{ joinedEvents.length }}</span>
+      </header>
+
+      @if (joinedEvents.length > 0) {
+        <div class="joined-events-list">
+          @for (event of joinedEvents; track event.item.id) {
+            <div class="joined-event-item" [ngClass]="event.item.category">
+              <div class="joined-event-main">
+                <p class="joined-event-title">{{ event.item.title }}</p>
+                <p class="joined-event-meta">
+                  <i class="fas fa-user-music"></i> {{ event.artistName }}
+                  <span>•</span>
+                  <i class="fas fa-calendar-alt"></i> {{ event.item.date }}
+                </p>
+              </div>
+              <a class="go-event-btn" [routerLink]="['/noticias', event.artistId, event.item.id]">Ver evento</a>
+            </div>
+          }
+        </div>
+      } @else {
+        <p class="joined-empty">Todavía no te has unido a ningún concierto o quedada.</p>
+      }
+    </article>
+  </div>
+</section>
+
+
