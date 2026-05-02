@@ -59,6 +59,7 @@ export class BlogComponent implements OnInit {
 
   
   eventosApuntados = new Set<string>();
+  grupoSeleccionadoId: string = '';
 
   constructor(
     private clienteService: ClienteService,
@@ -83,6 +84,8 @@ export class BlogComponent implements OnInit {
         this.cargando = false;
     
         if (this.grupos.length > 0) {
+          this.grupoSeleccionado   = this.grupos[0]; 
+          this.grupoSeleccionadoId = this.grupos[0]._id;  
           this.verPostsGrupo(this.grupos[0]);
         }
       },
@@ -118,11 +121,15 @@ export class BlogComponent implements OnInit {
     this.limpiarSeleccion();
     if (vista === 'mis-posts') this.cargarMisPublicaciones();
     if (vista === 'artistas')  this.cargarMisArtistas();
+    if (vista === 'posts' && this.grupos.length > 0) {
+        this.grupoSeleccionado = this.grupos[0];
+        this.verPostsGrupo(this.grupos[0]);
+    }
   }
 
   limpiarSeleccion(): void {
     this.noticiaSeleccionada  = null;
-    this.grupoSeleccionado    = null;
+
     this.postSeleccionado     = null;
     this.mensaje              = '';
   }
@@ -178,7 +185,7 @@ export class BlogComponent implements OnInit {
 
   votar(post: PostConVotos, voto: 'like' | 'dislike'): void {
     if (post.miVoto === voto) {
-      // Quitar voto
+    
       voto === 'like' ? post.likes-- : post.dislikes--;
       post.miVoto = null;
     } else {
@@ -243,6 +250,9 @@ export class BlogComponent implements OnInit {
 
   seleccionarGrupoParaPost(grupoId: string): void {
     this.grupoSeleccionado = this.grupos.find(g => g._id === grupoId) || null;
+    if (this.grupoSeleccionado) {
+        this.verPostsGrupo(this.grupoSeleccionado); 
+    }
   }
 
 

@@ -1,8 +1,8 @@
 
 <nav class="blog-nav">
-  <button [class.active]="vistaActual === 'inicio'"    (click)="irA('inicio')">
-    <i class="fas fa-home"></i> Inicio
-  </button>
+  <a [routerLink]="['/perfil']" class="btn-nav">
+    <i class="fas fa-home"></i> Perfil
+  </a>
   <button [class.active]="vistaActual === 'noticias'"  (click)="irA('noticias')">
     <i class="fas fa-newspaper"></i> Noticias
   </button>
@@ -124,7 +124,7 @@
 </section>
 
 
-════════════════════════════════════════════ -->
+
 <section class="detail-view" *ngIf="vistaActual === 'posts' && postSeleccionado">
   <button class="btn-back" (click)="postSeleccionado = null">← Volver al grupo</button>
 
@@ -187,7 +187,7 @@
 
   <div class="form-nuevo-post">
     <h3><i class="fas fa-pen"></i> Crear nuevo post</h3>
-    <select (change)="seleccionarGrupoParaPost($any($event.target).value)">
+    <select [(ngModel)]="grupoSeleccionadoId"  (change)="seleccionarGrupoParaPost($any($event.target).value)">
       <option value="">— Selecciona un grupo —</option>
       <option *ngFor="let g of grupos" [value]="g._id">{{ g.nombre }}</option>
     </select>

@@ -281,3 +281,34 @@
 }
 
 }
+@media (max-width: 480px) {
+  .news {
+    padding: 1rem;
+    margin-bottom: 1rem;
+
+    .news-card {
+      padding: 0.75rem;
+
+      .news-icon {
+        width: 38px;
+        height: 38px;
+        i { font-size: 1rem; }
+      }
+
+      .news-content {
+        h3 { font-size: 0.85rem; }
+        .news-excerpt { font-size: 0.78rem; }
+      }
+    }
+
+    .search-input {
+      font-size: 0.85rem;
+      padding: 6px 10px;
+    }
+
+    .filter-btn {
+      font-size: 0.78rem;
+      padding: 0.25rem 0.7rem;
+    }
+  }
+}

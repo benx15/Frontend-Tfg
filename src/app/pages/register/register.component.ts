@@ -16,6 +16,7 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   user = { username: '', password: '', name: '', lastName: '',  age: '' , email: ''  };
+  mostrarPassword = false;
 
   rawImages: string[] = [
     'https://res.cloudinary.com/tfgmulti/image/upload/v1776987184/bg1_i3vyfr.jpg',

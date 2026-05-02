@@ -285,3 +285,15 @@ $input-bg:            #f9fafb;
     padding: 2.5rem 2rem;
   }
 }
+.input-icon-eye {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #aaa;
+
+  &:hover {
+    color: #555;
+  }
+}

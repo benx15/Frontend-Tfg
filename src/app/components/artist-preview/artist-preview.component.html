@@ -6,7 +6,7 @@
     <div class="artist-grid">
       <div class="artist-card" 
            *ngFor="let artist of artists"
-           (click)="goToArtist(artist.id)">
+          (click)="goToArtist(artist.id)">
         <div class="artist-image-wrapper">
           <img [src]="artist.image" [alt]="artist.name">
           <div class="artist-overlay">

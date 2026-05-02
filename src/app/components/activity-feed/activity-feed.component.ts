@@ -19,7 +19,7 @@ interface Activity {
   styleUrl: './activity-feed.component.scss',
 })
 export class ActivityFeedComponent {
-   activities: Activity[] = [
+  activities: Activity[] = [
     {
       id: 1,
       user: 'Carlos Mendez',

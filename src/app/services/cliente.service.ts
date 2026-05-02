@@ -71,7 +71,7 @@ export class ClienteService {
     return this.http.get<any>(`${this.apiUrl}/misArtistas/${usuarioId}`, { headers: this.getHeaders() });
   }
   verMisGrupos(usuarioId: string): Observable<any> {
-  return this.http.get(`${this.apiUrl}/mis-grupos/${usuarioId}`);
+  return this.http.get(`${this.apiUrl}/mis-grupos/${usuarioId}` , { headers: this.getHeaders() });
   }
 
 }
