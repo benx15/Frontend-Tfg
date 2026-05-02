@@ -1,6 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap');
 
-/* ─── Página ─── */
+
+
+/* */
 .page-wrapper {
   font-family: 'DM Sans', sans-serif;
   min-height: 100vh;
@@ -21,7 +22,7 @@
   border: 0;
 }
 
-/* ─── Cabecera ─── */
+
 .board-header {
   text-align: center;
   margin-bottom: 2.5rem;
@@ -41,7 +42,7 @@
   margin-top: 4px;
 }
 
-/* ─── Mensajes de estado ─── */
+
 .msg-estado {
   text-align: center;
   color: #fff8ee;
@@ -51,7 +52,7 @@
 
 .msg-error { color: #ffcdd2; }
 
-/* ─── Tablón ─── */
+
 .board {
   display: flex;
   flex-wrap: wrap;
@@ -60,7 +61,7 @@
   align-items: flex-start;
 }
 
-/* ─── Post-it base ─── */
+
 .postit {
   width: 210px;
   min-height: 230px;
@@ -78,7 +79,7 @@
   z-index: 10;
 }
 
-/* Doblado esquina inferior derecha */
+
 .postit::after {
   content: '';
   position: absolute;
@@ -89,7 +90,7 @@
   border-radius: 0 0 2px 0;
 }
 
-/* Chincheta */
+
 .pin {
   position: absolute;
   top: -11px;
@@ -112,14 +113,14 @@
   border-radius: 1px;
 }
 
-/* Pestaña superior */
+
 .postit-tab {
   height: 26px;
   border-radius: 2px 2px 0 0;
   opacity: 0.65;
 }
 
-/* Cuerpo */
+
 .postit-body {
   flex: 1;
   padding: 14px 18px 20px;
@@ -128,7 +129,7 @@
   gap: 11px;
 }
 
-/* Líneas de cuaderno */
+
 .ruled .postit-body {
   background-image: repeating-linear-gradient(
     to bottom,
@@ -183,14 +184,15 @@
   font-weight: 500;
 }
 
-/* ─── Badges de estado ─── */
+
 .badge-activo   { background: #c8e6c9; color: #1b5e20; }
 .badge-pausa    { background: #fff9c2; color: #7a4f00; }
 .badge-inactivo { background: #ffcdd2; color: #7f0000; }
 
-/* ─────────── COLORES DE CADA POST-IT ─────────── */
 
-/* Amarillo */
+
+
+
 .pi-yellow                { background: #fff9c4; box-shadow: 4px 6px 0 rgba(0,0,0,0.10); }
 .pi-yellow .postit-tab    { background: #f9e224; }
 .pi-yellow .pin           { background: #c0392b; }
@@ -200,7 +202,7 @@
 .pi-yellow .cantidad-circle { background: #fff176; color: #5d4e00; }
 .pi-yellow .badge-genero  { background: #f9e224; color: #5d4e00; }
 
-/* Verde menta */
+
 .pi-mint                  { background: #c8f7d8; box-shadow: 4px 6px 0 rgba(0,0,0,0.10); }
 .pi-mint .postit-tab      { background: #5dcaa5; }
 .pi-mint .pin             { background: #922b21; }
@@ -210,7 +212,7 @@
 .pi-mint .cantidad-circle { background: #a7f0c8; color: #084431; }
 .pi-mint .badge-genero    { background: #5dcaa5; color: #04342c; }
 
-/* Rosa */
+
 .pi-pink                  { background: #fce4ec; box-shadow: 4px 6px 0 rgba(0,0,0,0.10); }
 .pi-pink .postit-tab      { background: #ed93b1; }
 .pi-pink .pin             { background: #1565c0; }
@@ -220,7 +222,7 @@
 .pi-pink .cantidad-circle { background: #f8bbd0; color: #4a1528; }
 .pi-pink .badge-genero    { background: #ed93b1; color: #4a1528; }
 
-/* Azul */
+
 .pi-blue                  { background: #ddeeff; box-shadow: 4px 6px 0 rgba(0,0,0,0.10); }
 .pi-blue .postit-tab      { background: #85b7eb; }
 .pi-blue .pin             { background: #6d4c41; }
@@ -230,7 +232,7 @@
 .pi-blue .cantidad-circle { background: #b5d4f4; color: #042c53; }
 .pi-blue .badge-genero    { background: #85b7eb; color: #042c53; }
 
-/* Coral */
+
 .pi-coral                 { background: #ffe0cc; box-shadow: 4px 6px 0 rgba(0,0,0,0.10); }
 .pi-coral .postit-tab     { background: #f0997b; }
 .pi-coral .pin            { background: #283593; }
@@ -240,7 +242,7 @@
 .pi-coral .cantidad-circle { background: #f5c4b3; color: #4a1b0c; }
 .pi-coral .badge-genero   { background: #f0997b; color: #4a1b0c; }
 
-/* Lila */
+
 .pi-purple                { background: #ede7f6; box-shadow: 4px 6px 0 rgba(0,0,0,0.10); }
 .pi-purple .postit-tab    { background: #afa9ec; }
 .pi-purple .pin           { background: #c0392b; }
@@ -250,7 +252,7 @@
 .pi-purple .cantidad-circle { background: #cecbf6; color: #26215c; }
 .pi-purple .badge-genero  { background: #afa9ec; color: #26215c; }
 
-/* Ámbar */
+
 .pi-amber                 { background: #fff8e1; box-shadow: 4px 6px 0 rgba(0,0,0,0.10); }
 .pi-amber .postit-tab     { background: #ef9f27; }
 .pi-amber .pin            { background: #37474f; }
@@ -260,7 +262,7 @@
 .pi-amber .cantidad-circle { background: #fac775; color: #412402; }
 .pi-amber .badge-genero   { background: #ef9f27; color: #412402; }
 
-/* Teal */
+
 .pi-teal                  { background: #e0f7f2; box-shadow: 4px 6px 0 rgba(0,0,0,0.10); }
 .pi-teal .postit-tab      { background: #1d9e75; }
 .pi-teal .pin             { background: #b71c1c; }
@@ -270,7 +272,6 @@
 .pi-teal .cantidad-circle { background: #9fe1cb; color: #04342c; }
 .pi-teal .badge-genero    { background: #1d9e75; color: #e1f5ee; }
 
-/* ─── Responsive ─── */
 @media (max-width: 480px) {
   .board   { gap: 24px; }
   .postit  { width: 170px; }
@@ -301,7 +302,7 @@
   box-shadow: 2px 3px 0 rgba(0,0,0,0.15);
 }
 
-/* ─── Botones de acción en post-it ─── */
+
 .postit-acciones {
   display: flex;
   justify-content: flex-end;
@@ -324,7 +325,7 @@
 
 .btn-accion:hover { transform: scale(1.15); background: rgba(255,255,255,0.8); }
 
-/* ─── Modal backdrop ─── */
+
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -364,7 +365,7 @@
 
 .modal-desc strong { color: #3a2e00; }
 
-/* ─── Formulario modal ─── */
+
 .form-group {
   display: flex;
   flex-direction: column;
@@ -397,7 +398,6 @@
   border-color: #f9e224;
 }
 
-/* ─── Footer modal ─── */
 .modal-footer {
   display: flex;
   justify-content: flex-end;
