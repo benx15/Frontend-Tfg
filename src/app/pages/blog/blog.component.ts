@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ClienteService } from '../../services/cliente.service';
 import { EventosService } from '../../services/eventos.service';
 import { NoticiasService } from '../../services/noticias.service';
+import { RouterModule } from '@angular/router';
 type Vista = 'inicio' | 'noticias' | 'eventos' | 'posts' | 'mis-posts' | 'artistas';
 
 interface PostConVotos {
@@ -22,7 +23,7 @@ interface PostConVotos {
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [CommonModule,  FormsModule],
+  imports: [CommonModule,  FormsModule,RouterModule],
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.scss']
 })
