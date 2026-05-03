@@ -15,10 +15,9 @@
       </div>
 
       <div class="profile-info">
-        <h2>{{ userName }}</h2>
-        <p class="profile-line"><i class="fas fa-user"></i> Usuario: {{ userName }}</p>
-        <p class="profile-line"><i class="fas fa-envelope"></i> Correo: {{ maskedEmail }}</p>
-        <p class="profile-note">Tu correo se mantiene oculto para el resto de usuarios.</p>
+        <h2>{{ name }}</h2>
+        <p class="profile-line"><i class="fas fa-user"></i> Nombre: {{ name }}</p>
+        <p class="profile-line"><i class="fas fa-user"></i> Apellido: {{ lastName }}</p>
       </div>
     </article>
 
@@ -40,7 +39,7 @@
                   <i class="fas fa-calendar-alt"></i> {{ event.item.date }}
                 </p>
               </div>
-              <a class="go-event-btn" [routerLink]="['/noticias', event.artistId, event.item.id]">Ver evento</a>
+              
             </div>
           }
         </div>

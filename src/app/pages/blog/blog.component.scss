@@ -37,6 +37,28 @@
     &:hover  { color: #e2e4ef; background: #1e2236; }
     &.active { background: #d4a017; color: #000; font-weight: 700; }
   }
+  a.btn-nav {
+    background: none;
+    border: none;
+    color: #6b7194;
+    padding: 0.45rem 0.9rem;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    transition: color 0.18s ease, background 0.18s ease;
+
+    i { font-size: 0.8rem; }
+
+    &:hover { color: #e2e4ef; background: #1e2236; }
+
+    &.active { background: #d4a017; color: #000; font-weight: 700; }
+  }
+
 }
 
 

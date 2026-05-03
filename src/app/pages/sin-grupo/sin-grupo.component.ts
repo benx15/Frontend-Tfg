@@ -52,11 +52,16 @@ export class SinGrupoComponent implements OnInit {
       error: (err) => console.error(' Error eventos:', err)
     });
   }
-   unirseAGrupo(grupoId: string): void {
+  unirseAGrupo(grupoId: string): void {
     const payload = { usuarioId: this.usuarioId, grupoId };
     this.clienteService.agregarUsuarioAGrupo(payload).subscribe({
       next: () => {
         alert('Te has unido al grupo correctamente');
+        const grupoElegido = this.grupos.find(g => g._id === grupoId);
+        if (grupoElegido) {
+          localStorage.setItem('grupoId',     grupoElegido._id);
+          localStorage.setItem('grupoNombre', grupoElegido.nombre);
+        }
         this.router.navigate(['/blog']);
       },
       error: err => alert(err.error.mensaje)

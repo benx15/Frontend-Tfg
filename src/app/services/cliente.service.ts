@@ -71,7 +71,10 @@ export class ClienteService {
     return this.http.get<any>(`${this.apiUrl}/misArtistas/${usuarioId}`, { headers: this.getHeaders() });
   }
   verMisGrupos(usuarioId: string): Observable<any> {
-  return this.http.get(`${this.apiUrl}/mis-grupos/${usuarioId}` , { headers: this.getHeaders() });
+    return this.http.get(`${this.apiUrl}/mis-grupos/${usuarioId}` , { headers: this.getHeaders() });
+  }
+  verMisEventos(usuarioId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/misEventos/${usuarioId}`, { headers: this.getHeaders() });
   }
 
 }

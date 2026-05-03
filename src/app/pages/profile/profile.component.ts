@@ -1,63 +1,53 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterModule } from '@angular/router';
-import { EventosService } from '../../services/eventos.service';
+import { Component, OnInit , ChangeDetectorRef } from '@angular/core';
+import {  RouterModule } from '@angular/router';
+import { ClienteService } from '../../services/cliente.service';
 
 @Component({
   selector: 'app-profile-page',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterModule],
+  imports: [CommonModule,  RouterModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })
 export class ProfileComponent implements OnInit{
 
-  constructor(private eventosService: EventosService){}
+  constructor(private cdr: ChangeDetectorRef,private clienteService: ClienteService ){}
 
-  readonly userName = '';
-  readonly email = '';
+  name = localStorage.getItem('nombre') || '';
+  lastName = localStorage.getItem('apellido') || '';
+  usuarioId = localStorage.getItem('usuarioId') || '';
+
+  profileImageUrl = this.buildAvatarUrl(this.name);
+  public joinedEvents: any[] = [];
 
   ngOnInit(): void {
     this.loadMyEvents();
   }
 
   loadMyEvents(): void {
-
-    const myJoinedIds: string[] = JSON.parse(localStorage.getItem('user_events_ids') || '[]');
-
-    this.eventosService.getEventos().subscribe({
-      next: (allEvents: any[]) => {
-      
-        this.joinedEvents = allEvents
-          .filter(e => myJoinedIds.includes(e._id)) 
-          .map(e => ({
-            artistName: e.artista || 'Artista Desconocido',
-            artistId: e.artistaId || '0',
-            item: {
-              id: e._id,
-              title: e.nombre,
-              date: e.fecha,
-              category: e.tipo || 'default'
-            }
-          }));
+    this.clienteService.verMisEventos(this.usuarioId).subscribe({
+      next: (res:any) => {
+        console.log('Eventos recibidos:', res.eventos.length);
+        console.log('Primer evento:', res.eventos?.[0]);
+        this.joinedEvents = res.eventos.map((e: any) => ({
+          artistName: e.artista?.[0]?.nombreArtistico || 'Artista Desconocido',
+          artistId:   e.artista?.[0]?.id || '0',
+          item: {
+            id:       e.id,
+            title:    e.nombre,
+            date:     e.fecha,
+            category: e.genero || 'default'
+          }
+        }));
+        this.cdr.detectChanges(); 
+        console.log('joinedEvents tras mapeo:', this.joinedEvents);
       },
-      error: (err) => console.error('Error al traer eventos:', err)
+    
+      error: (err:any) => console.error('Error al traer eventos:', err)
     });
   }
 
-
-  profileImageUrl = this.buildAvatarUrl(this.userName);
-
-  get maskedEmail(): string {
-    const [local, domain] = this.email.split('@');
-    if (!local || !domain) {
-      return 'correo oculto';
-    }
-    const visible = local.slice(0, 2);
-    return `${visible}${'*'.repeat(Math.max(2, local.length - 2))}@${domain}`;
-  }
-
-  
 
   onImageSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -86,8 +76,7 @@ export class ProfileComponent implements OnInit{
     const safe = encodeURIComponent(userName);
     return `https://api.dicebear.com/9.x/initials/svg?seed=${safe}&backgroundColor=667eea,764ba2,3498db`;
   }
-  public joinedEvents: any[] = [];
-
   
+
 
 }
